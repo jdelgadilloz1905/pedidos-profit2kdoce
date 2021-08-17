@@ -1,0 +1,32 @@
+{
+	"expo": {
+		"name": "Mis pedidos 2kDoce",
+		"slug": "MisPedidos2kdoce",
+		"version": "1.0",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true
+		},
+		"android": {
+			"package": "com.pedidos_profit_2kdoce.omendj",
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/adaptive-icon.png",
+				"backgroundColor": "#FFFFFF"
+			}
+		},
+		"web": {
+			"favicon": "./assets/favicon.png"
+		},
+		"description": "App encargado de realizar pedidos al sistema profit plus 2KDoce desde un dispositivo movil, desarrollado por el Ingeniero Jorge delgadillo"
+	}
+}
