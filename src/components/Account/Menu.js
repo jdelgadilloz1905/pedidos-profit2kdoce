@@ -94,6 +94,13 @@ export default function Menu() {
 					left={(props) => <List.Icon {...props} icon='file-document' />}
 					onPress={() => navigation.navigate('report')}
 				/>
+
+				<List.Item
+					title='Acerca de'
+					description='Información del producto y licencia'
+					left={(props) => <List.Icon {...props} icon='help-circle' />}
+					onPress={() => navigation.navigate('licence')}
+				/>
 				<List.Item
 					title='Cerrar sesión'
 					description='Cierra esta sesion e inicia con otra'

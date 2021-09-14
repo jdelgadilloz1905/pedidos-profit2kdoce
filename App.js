@@ -17,7 +17,7 @@ export default function App() {
 	useEffect(() => {
 		;(async () => {
 			const token = await getTokenApi()
-			//verifico la version de la APP
+			//verifico si esta licenciado o no
 			if (FECHA_ACTUAL >= FECHA_VENCIMIENTO) {
 				Alert.alert(
 					'Su vesion de App se encuentra desactualizada, por favor contacte con el administrador'

@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Account from '../screens/Account/Account'
 import ChangeName from '../screens/Account/ChangeName'
 import ChangeEmail from '../screens/Account/ChangeEmail'
+import ChangeLicence from '../screens/Account/ChangeLicence'
 import ChangeUsername from '../screens/Account/ChangeUsername'
 import ChangePassword from '../screens/Account/ChangePassword'
 
@@ -121,6 +122,14 @@ export default function AccountStack() {
 				component={Report}
 				options={{
 					title: 'Reporte de pedidos',
+				}}
+			/>
+
+			<Stack.Screen
+				name='licence'
+				component={ChangeLicence}
+				options={{
+					title: 'Información del producto y licencia',
 				}}
 			/>
 		</Stack.Navigator>

@@ -37,7 +37,8 @@ export default function ListProduct(props) {
 	const { products } = props
 	const navigation = useNavigation()
 	const goToProduct = (product) => {
-		navigation.push('product', { infoProduct: product })
+		//navigation.push('product', { infoProduct: product })
+		//desactivo la opcion de ver el detalle del articulo
 	}
 	const [reloadCart, setReloadCart] = useState(false)
 

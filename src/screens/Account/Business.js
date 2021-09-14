@@ -4,7 +4,7 @@ import React, { useState, useCallback } from 'react'
 import { StyleSheet, ScrollView, Text } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import { size } from 'lodash'
-import { Button, Avatar, Card, Paragraph } from 'react-native-paper'
+import { Button, Avatar, Card, Paragraph, Divider } from 'react-native-paper'
 import ScreenLoading from '../../components/ScreenLoading'
 import { getTasa } from '../../api/Business'
 import { getTasaApi } from '../../api/product'
@@ -62,13 +62,14 @@ export default function Business() {
 								GUARICO
 							</Paragraph>
 							<Paragraph>Moneda $</Paragraph>
-							<Paragraph>Sucursal 0001</Paragraph>
-							<Paragraph>Codigo DDH_A</Paragraph>
-							<Paragraph>almacen 001</Paragraph>
+
+							<Paragraph>Codigo DHHDIV_A</Paragraph>
+
 							<Paragraph>
 								Tasa del dia: {parseFloat(business.tasa_v).toFixed(2)} $
 							</Paragraph>
 							<Paragraph>Ultima actualización: {business.fecha}</Paragraph>
+
 							<Button
 								mode='contained'
 								style={formStyle.btnSucces}
@@ -108,5 +109,8 @@ var styles = StyleSheet.create({
 	},
 	loading: {
 		marginTop: 20,
+	},
+	espacio: {
+		margin: 10,
 	},
 })
