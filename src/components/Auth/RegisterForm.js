@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useEffect } from 'react'
-import { View, Alert, StyleSheet } from 'react-native'
+import { View, Alert, StyleSheet, ActivityIndicator } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { TextInput, Button } from 'react-native-paper'
 import { useFormik } from 'formik'
@@ -13,6 +13,7 @@ import { formStyle } from '../../styles'
 export default function RegisterForm(props) {
 	const { setShowLogin } = props
 	const [loading, setLoading] = useState(false)
+	const [uploading, setUploading] = useState(false)
 	const [selectedCodVen, setSelectedCodVen] = useState(null)
 	const [vendedores, setVendedores] = useState([])
 
@@ -31,6 +32,7 @@ export default function RegisterForm(props) {
 		validationSchema: Yup.object(validationSchema()),
 		onSubmit: async (formData) => {
 			setLoading(true)
+			setUploading(true)
 			try {
 				response = await registerApi(formData, selectedCodVen)
 
@@ -40,9 +42,28 @@ export default function RegisterForm(props) {
 				Alert.alert('Error al registrar el usuario ', JSON.stringify(error))
 
 				setLoading(false)
+				setUploading(false)
 			}
 		},
 	})
+
+	const maybeRenderUploadingOverlay = () => {
+		if (uploading) {
+			return (
+				<View
+					style={[
+						StyleSheet.absoluteFill,
+						{
+							backgroundColor: 'rgba(0,0,0,0.4)',
+							alignItems: 'center',
+							justifyContent: 'center',
+						},
+					]}>
+					<ActivityIndicator color='#fff' animating size='large' />
+				</View>
+			)
+		}
+	}
 
 	return (
 		<View>
@@ -105,6 +126,7 @@ export default function RegisterForm(props) {
 				onPress={showLogin}>
 				Iniciar Sesión
 			</Button>
+			{maybeRenderUploadingOverlay()}
 		</View>
 	)
 }

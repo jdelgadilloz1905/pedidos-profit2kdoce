@@ -186,7 +186,7 @@ export async function updateUserNameApi(auth, formData) {
 }
 export async function getVendedorApi(limit = 30) {
 	try {
-		const url = `${API_URL}/auth/vendedor`
+		const url = `${API_URL}/auth/vendedores`
 		const params = {
 			method: 'POST',
 			headers: {
