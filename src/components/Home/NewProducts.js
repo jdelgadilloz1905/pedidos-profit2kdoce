@@ -26,10 +26,10 @@ export default function NewProducts() {
 		useCallback(() => {
 			setProducts(null)
 			;(async () => {
-				const response = await getLastProuctsApi(30)
-				//await getTasaApi()
+				const responseProduct = await getLastProuctsApi()
+				setProducts(responseProduct)
+
 				await getListOptionCart()
-				setProducts(response)
 			})()
 
 			setReloadProducts(false)

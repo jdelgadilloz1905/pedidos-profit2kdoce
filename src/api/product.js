@@ -80,7 +80,7 @@ export async function getProductApi(id) {
 	}
 }
 
-export async function getLastProuctsApi(limit = 30) {
+export async function getLastProuctsApi() {
 	//primero valido si existe el localStorage
 	try {
 		const articulos = await AsyncStorage.getItem(ARTICULOS)
@@ -94,7 +94,6 @@ export async function getLastProuctsApi(limit = 30) {
 						Accept: 'application/json',
 						'Content-Type': 'application/json',
 					},
-					body: { limit: limit },
 				}
 				const response = await fetch(url, params)
 				const result = await response.json()
