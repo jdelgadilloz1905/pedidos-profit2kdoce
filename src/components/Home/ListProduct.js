@@ -37,8 +37,7 @@ export default function ListProduct(props) {
 	const { products } = props
 	const navigation = useNavigation()
 	const goToProduct = (product) => {
-		//navigation.push('product', { infoProduct: product })
-		//desactivo la opcion de ver el detalle del articulo
+		navigation.push('product', { infoProduct: product })
 	}
 	const [reloadCart, setReloadCart] = useState(false)
 
@@ -91,7 +90,7 @@ export default function ListProduct(props) {
 		if (response) {
 			Alert.alert('Producto añadido al pedido')
 		} else {
-			Alert.alert('ERROR al añadir el producto')
+			Alert.alert('ERROR al añadir el producto ')
 		}
 
 		setVisible(false)

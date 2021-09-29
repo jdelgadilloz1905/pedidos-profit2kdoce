@@ -14,8 +14,9 @@ import colors from '../../styles/colors'
 import {
 	getLastProuctsApi,
 	getAllProductsApi,
-	getTasaApi,
-	getListOptionCart,
+	getStockProducto,
+	getUnidadProducto,
+	getPrecioProducto,
 } from '../../api/product'
 
 export default function NewProducts() {
@@ -28,8 +29,9 @@ export default function NewProducts() {
 			;(async () => {
 				const responseProduct = await getLastProuctsApi()
 				setProducts(responseProduct)
-
-				await getListOptionCart()
+				await getStockProducto()
+				await getUnidadProducto()
+				await getPrecioProducto()
 			})()
 
 			setReloadProducts(false)
@@ -54,13 +56,7 @@ export default function NewProducts() {
 
 	const handleUpdateArticulos = async () => {
 		setProducts(null)
-
-		const response = await getAllProductsApi(30)
-		//actualizo la tasa, transporte, condicones o forma de pago
-
-		await getTasaApi()
-
-		await getListOptionCart()
+		const response = await getAllProductsApi()
 		setProducts(response)
 	}
 
