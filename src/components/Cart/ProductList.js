@@ -16,7 +16,7 @@ export default function ProductList(props) {
 			let totalPaymentTemp = 0
 			for await (const product of cart) {
 				const response = await getProductApi(product.co_art)
-
+				console.log(response)
 				response.infoProduct.quantity = product.quantity
 				response.infoProduct.price = product.price
 				productTemp.push(response.infoProduct)

@@ -146,27 +146,39 @@ export default function Product(props) {
 
 					<View style={styles.container}>
 						<View style={styles.row}>
-							{/* <View style={[styles.box, styles.two]}>
+							<View style={[styles.box, styles.two]}>
 								<Quantity
 									quantity={quantity}
 									setQuantity={setQuantity}
 									setIsShowMessage={setIsShowMessage}
 									isShowMessage={isShowMessage}
-									stock_act={isSelectedStock[0].stock_act}
+									stock_act={
+										isSelectedStock
+											? isSelectedStock[0].stock_act !== '.00000'
+												? parseInt(isSelectedStock[0].stock_act)
+												: 0
+											: 0
+									}
 								/>
-							</View> */}
-							{/* <View style={[styles.box, styles.box2]}>
+							</View>
+							<View style={[styles.box, styles.box2]}>
 								<Buy
 									product={product}
 									quantity={quantity}
 									isShowMessage={isShowMessage}
-									stock_act={isSelectedStock[0].stock_act}
+									stock_act={
+										isSelectedStock
+											? isSelectedStock[0].stock_act !== '.00000'
+												? parseInt(isSelectedStock[0].stock_act)
+												: 0
+											: 0
+									}
 									price={isPrecio}
 								/>
-							</View> */}
-							{/* <View style={[styles.box, styles.box2]}>
+							</View>
+							<View style={[styles.box, styles.box2]}>
 								<Favorite product={product} />
-							</View> */}
+							</View>
 						</View>
 					</View>
 				</ScrollView>

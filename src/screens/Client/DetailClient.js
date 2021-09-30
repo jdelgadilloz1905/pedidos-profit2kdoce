@@ -84,7 +84,7 @@ export default function DetailClient(props) {
 							</Card.Actions>
 						</Card>
 
-						<CuentaxCobrar client={client} />
+						{/* <CuentaxCobrar client={client} /> */}
 					</ScrollView>
 				</>
 			)}

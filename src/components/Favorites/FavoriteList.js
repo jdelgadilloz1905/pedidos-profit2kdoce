@@ -2,24 +2,18 @@
 
 import React from 'react'
 import { StyleSheet, ScrollView, View, Text, Image } from 'react-native'
-import { map } from 'lodash'
-import Product from './Product'
+import { size } from 'lodash'
+
+import ListProduct from '../../components/Home/ListProduct'
 
 export default function FavoriteList(props) {
 	const { products, auth, setReloadFavorite } = props
 
 	return (
 		<ScrollView contentContainerStyle={styles.container}>
-			<Text style={styles.title}>Lista de favoritos</Text>
-
-			{map(products, (item) => (
-				<Product
-					key={item.co_art}
-					item={item}
-					auth={JSON.parse(auth.token).id}
-					setReloadFavorite={setReloadFavorite}
-				/>
-			))}
+			<Text style={styles.title}>Mis Favoritos</Text>
+			<Text>{`Encontrados: ${size(products)}`} </Text>
+			<ListProduct products={products} />
 		</ScrollView>
 	)
 }

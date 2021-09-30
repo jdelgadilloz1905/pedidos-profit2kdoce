@@ -16,7 +16,7 @@ import {
 export async function getProductCartApi() {
 	try {
 		const cart = await AsyncStorage.getItem(CART)
-
+		console.log('carito de compras ', cart)
 		if (!cart) return []
 		return JSON.parse(cart) //convierto en un objeto
 	} catch (e) {
@@ -25,9 +25,7 @@ export async function getProductCartApi() {
 }
 
 export async function getPedidosCartApi() {
-	//await AsyncStorage.removeItem(PEDIDOS)
 	try {
-		//await AsyncStorage.removeItem(PEDIDOS)
 		const pedidos = await AsyncStorage.getItem(PEDIDOS)
 
 		if (!pedidos) return []
@@ -52,11 +50,10 @@ export async function addProductCartApi(co_art, quantity, price) {
 
 			map(cart, (product) => {
 				if (product.co_art === co_art) {
-					
 					let cant = 0
-					
+
 					cant = parseFloat(product.quantity) + parseFloat(quantity)
-					
+
 					product.quantity = cant
 					found = true
 					return product
