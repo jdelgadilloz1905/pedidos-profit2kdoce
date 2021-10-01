@@ -11,6 +11,7 @@ import {
 } from '../utils/constants'
 
 import { filter } from 'lodash'
+
 export async function searchProductsApi(search) {
 	try {
 		const articulos = await AsyncStorage.getItem(ARTICULOS)
@@ -34,28 +35,41 @@ export async function searchProductsApi(search) {
 	}
 }
 
-export async function getProductApi(co_art) {
-	//busco la informacion del producto
-	// try {
-	// 	const url = `${API_URL}/products/getProduct`
-	// 	const params = {
-	// 		method: 'POST',
-	// 		headers: {
-	// 			Accept: 'application/json text/plain, */*',
-	// 			'Content-Type': 'application/json',
-	// 		},
-	// 		body: JSON.stringify({
-	// 			co_art: id,
-	// 		}),
-	// 	}
-	// 	const response = await fetch(url, params)
-	// 	const result = await response.json()
-	// 	return result
-	// } catch (error) {
-	// 	console.log(error)
-	// 	return null
-	// }
+export async function getBuscarStockArt(item) {
+	const stock = await AsyncStorage.getItem(STOCK)
+	const datosStock = JSON.parse(stock)
+
+	const newListSto = filter(datosStock, (product) => {
+		return product.co_art.toLowerCase().indexOf(item.toLowerCase()) > -1
+	})
+
+	if (newListSto.length !== 0) {
+		return parseInt(newListSto[0].stock_act)
+	}
 }
+
+// export async function getProductApi(co_art) {
+// 	//busco la informacion del producto
+// 	try {
+// 		const url = `${API_URL}/products/getProduct`
+// 		const params = {
+// 			method: 'POST',
+// 			headers: {
+// 				Accept: 'application/json text/plain, */*',
+// 				'Content-Type': 'application/json',
+// 			},
+// 			body: JSON.stringify({
+// 				co_art: id,
+// 			}),
+// 		}
+// 		const response = await fetch(url, params)
+// 		const result = await response.json()
+// 		return result
+// 	} catch (error) {
+// 		console.log(error)
+// 		return null
+// 	}
+// }
 
 /*===============================================
 LISTA DE PRODUCTOS
@@ -121,8 +135,6 @@ export async function getStockProducto() {
 				const response = await fetch(url, params)
 				const result = await response.json()
 				if (result.statusCode === 200) {
-					//almaceno la info en el localStorage
-					//console.log('Lista de stock ', result.infoStockArticulo)
 					await AsyncStorage.setItem(
 						STOCK,
 						JSON.stringify(result.infoStockArticulo)

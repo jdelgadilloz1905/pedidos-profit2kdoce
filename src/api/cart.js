@@ -11,6 +11,7 @@ import {
 	PEDIDOS,
 	FORMA_PAGO,
 	TRANSPORTE,
+	PRECIOS,
 } from '../utils/constants'
 
 export async function getProductCartApi() {
@@ -307,32 +308,21 @@ export async function getListOptionPedido() {
 /******************************* */
 export async function getCalculatePrice(item) {
 	try {
+		const co_art = item.co_art
 		const datosUSer = await getClientCartApi()
+		const precios = await AsyncStorage.getItem(PRECIOS)
+		const datosPrecio = JSON.parse(precios)
 
-		switch (datosUSer.tipo_precio.trim()) {
-			case 'PRECIO 1':
-				return item.prec_vta1
-				break
+		const newListPre = filter(datosPrecio, (product) => {
+			return product.co_art.toLowerCase().indexOf(co_art.toLowerCase()) > -1
+		})
 
-			case 'PRECIO 2':
-				return item.prec_vta2
-				break
+		if (newListPre.length !== 0) {
+			const newPrecio = filter(newListPre, (precio) => {
+				return precio.co_precio.indexOf(datosUSer.tipo_precio.trim()) > -1
+			})
 
-			case 'PRECIO 3':
-				return item.prec_vta3
-				break
-
-			case 'PRECIO 4':
-				return item.prec_vta4
-				break
-
-			case 'PRECIO 5':
-				return item.prec_vta5
-				break
-
-			default:
-				return 0
-				break
+			return parseFloat(newPrecio[0].monto).toFixed(2)
 		}
 	} catch (error) {
 		console.log(error)

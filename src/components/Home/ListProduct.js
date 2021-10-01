@@ -28,6 +28,7 @@ import {
 	getClientCartApi,
 	getCalculatePrice,
 } from '../../api/cart'
+import { getBuscarStockArt } from '../../api/product'
 import { size } from 'lodash'
 
 import Quantity from '../../components/Product/Quantity'
@@ -64,8 +65,10 @@ export default function ListProduct(props) {
 			navigation.navigate('client')
 		} else {
 			//levanto el modal y luego cuando coloque la cantidad es que comienzo a cargar el ReloarCart
+			//busco el stock para actualizar la variable
+			let stock_actual = await getBuscarStockArt(item.co_art)
 
-			setStockActual(item.stock_act)
+			setStockActual(stock_actual)
 			setCoArt(item.co_art)
 			setVisible(true)
 		}
@@ -84,7 +87,7 @@ export default function ListProduct(props) {
 			item2.art_des,
 			quantity,
 			price,
-			item2.stock_act
+			stockActual
 		)
 		if (response) {
 			Alert.alert('Producto añadido al pedido')
@@ -124,6 +127,7 @@ export default function ListProduct(props) {
 			</View>
 		</View>
 	)
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<FlatList
@@ -166,9 +170,11 @@ export default function ListProduct(props) {
 
 								<View style={styles.row}></View>
 							</View>
-							<Button style={{ marginTop: 10 }} onPress={hideModal}>
-								Cerrar
-							</Button>
+							<Button
+								icon='close'
+								color='#b12704'
+								style={{ marginTop: 10 }}
+								onPress={hideModal}></Button>
 						</Modal>
 					</Portal>
 				</Provider>
@@ -247,5 +253,25 @@ const styles = StyleSheet.create({
 	},
 	two: {
 		flex: 2,
+	},
+
+	btnsContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		position: 'relative',
+		width: '100%',
+	},
+	selectQuantity: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	btnQuantity: {
+		backgroundColor: colors.primary,
+		borderRadius: 5,
+		margin: 0,
+	},
+	inputQuantity: {
+		paddingHorizontal: 10,
+		fontSize: 16,
 	},
 })

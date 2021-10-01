@@ -20,7 +20,7 @@ export default function Product(props) {
 	const [isShowMessage, setIsShowMessage] = useState(false) //verifico si el true lo agrego al carrito
 
 	const calcPrice = (price, discount) => {
-		if (!discount) return price
+		if (!discount) return parseFloat(price).toFixed(2)
 
 		const discountAmount = (price * discount) / 100
 		return (price - discountAmount).toFixed(2)

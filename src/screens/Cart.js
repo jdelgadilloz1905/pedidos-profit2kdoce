@@ -58,7 +58,6 @@ export default function Cart() {
 
 	const loadCart = async () => {
 		const response = await getProductCartApi()
-
 		setCart(response)
 	}
 
