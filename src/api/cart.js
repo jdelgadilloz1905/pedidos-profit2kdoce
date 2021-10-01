@@ -15,8 +15,9 @@ import {
 
 export async function getProductCartApi() {
 	try {
+		//await AsyncStorage.removeItem(CART)
 		const cart = await AsyncStorage.getItem(CART)
-		console.log('carito de compras ', cart)
+
 		if (!cart) return []
 		return JSON.parse(cart) //convierto en un objeto
 	} catch (e) {
@@ -35,15 +36,23 @@ export async function getPedidosCartApi() {
 	}
 }
 
-export async function addProductCartApi(co_art, quantity, price) {
+export async function addProductCartApi(
+	co_art,
+	art_des,
+	quantity,
+	price,
+	stock_act = 0
+) {
 	try {
 		const cart = await getProductCartApi()
 
 		if (size(cart) === 0) {
 			cart.push({
 				co_art,
+				art_des,
 				quantity,
 				price,
+				stock_act,
 			})
 		} else {
 			let found = false
@@ -63,8 +72,10 @@ export async function addProductCartApi(co_art, quantity, price) {
 			if (!found) {
 				cart.push({
 					co_art,
+					art_des,
 					quantity,
 					price,
+					stock_act,
 				})
 			}
 		}
@@ -105,7 +116,7 @@ export async function decreaseProductCartApi(co_art) {
 		const cart = await getProductCartApi()
 		map(cart, (product) => {
 			if (product.co_art === co_art) {
-				if (product.quantity === 1) {
+				if (product.quantity === 1 || product.quantity === '1') {
 					isDelete = true
 					return null
 				} else {
@@ -131,7 +142,9 @@ export async function increaseProductCartApi(co_art) {
 		const cart = await getProductCartApi()
 		map(cart, (product) => {
 			if (product.co_art === co_art) {
-				return (product.quantity = parseFloat(product.quantity) + 1)
+				if (product.stock_act > product.quantity) {
+					return (product.quantity = parseFloat(product.quantity) + 1)
+				}
 			}
 		})
 
@@ -244,6 +257,7 @@ export async function deleteCartApi() {
 export async function getClientCartApi() {
 	try {
 		const client = await AsyncStorage.getItem(CLIENT)
+
 		return JSON.parse(client)
 	} catch (e) {
 		return null

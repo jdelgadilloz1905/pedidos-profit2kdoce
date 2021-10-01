@@ -10,11 +10,11 @@ export default function FavoriteList(props) {
 	const { products, auth, setReloadFavorite } = props
 
 	return (
-		<ScrollView contentContainerStyle={styles.container}>
+		<View style={styles.container}>
 			<Text style={styles.title}>Mis Favoritos</Text>
 			<Text>{`Encontrados: ${size(products)}`} </Text>
 			<ListProduct products={products} />
-		</ScrollView>
+		</View>
 	)
 }
 

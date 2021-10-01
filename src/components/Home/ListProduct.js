@@ -68,13 +68,6 @@ export default function ListProduct(props) {
 			setStockActual(item.stock_act)
 			setCoArt(item.co_art)
 			setVisible(true)
-			/*const price = await getCalculatePrice(item)
-			const response = await addProductCartApi(item.co_art, 1, price)
-			if (response) {
-				Alert.alert('Producto añadido al pedido')
-			} else {
-				Alert.alert('ERROR al añadir el producto')
-			}*/
 		}
 
 		setReloadCart(false)
@@ -86,7 +79,13 @@ export default function ListProduct(props) {
 
 		const price = await getCalculatePrice(item2)
 
-		const response = await addProductCartApi(item2.co_art, quantity, price)
+		const response = await addProductCartApi(
+			item2.co_art,
+			item2.art_des,
+			quantity,
+			price,
+			item2.stock_act
+		)
 		if (response) {
 			Alert.alert('Producto añadido al pedido')
 		} else {

@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, Image, TextInput } from 'react-native'
 import { Button, IconButton } from 'react-native-paper'
-import { API_URL } from '../../utils/constants'
+
 import {
 	deleteProductCartApi,
 	decreaseProductCartApi,
@@ -20,27 +20,10 @@ export default function Product(props) {
 	const [isShowMessage, setIsShowMessage] = useState(false) //verifico si el true lo agrego al carrito
 
 	const calcPrice = (price, discount) => {
-		if (!discount) return parseFloat(price).toFixed(2)
+		if (!discount) return price
 
 		const discountAmount = (price * discount) / 100
 		return (price - discountAmount).toFixed(2)
-	}
-
-	const calUnidad = (item) => {
-		console.log(
-			typeof product.price *
-				(product.uni_venta === 'UND'
-					? quantity *
-					  (parseInt(product.uni_relac) > 0 ? parseInt(product.uni_relac) : 1)
-					: quantity)
-		)
-		if (item.uni_venta === 'UND') {
-			return `${
-				quantity * (parseInt(item.uni_relac) > 0 ? parseInt(item.uni_relac) : 1)
-			} unidades`
-		} else {
-			return `${quantity} caja`
-		}
 	}
 
 	const deleteProductCart = async () => {
@@ -57,8 +40,8 @@ export default function Product(props) {
 		if (response) setReloadCart(true)
 	}
 
-	const updateProductCart = async () => {
-		const response = await updateProductCartApi(product.co_art, quantity)
+	const updateProductCart = async (item) => {
+		const response = await updateProductCartApi(product.co_art, item)
 		if (response) setReloadCart(true)
 	}
 
@@ -72,44 +55,51 @@ export default function Product(props) {
           }}
         />
       </View>*/}
+
 			<View style={styles.info}>
 				<View>
 					<Text style={styles.name} numberOfLines={3} ellipsizeMode='tail'>
 						{product.art_des}
 					</Text>
-					<Text style={styles.name} numberOfLines={3} ellipsizeMode='tail'>
-						{`Código: ${product.co_art}`}
+					<Text style={styles.name} numberOfLines={2} ellipsizeMode='tail'>
+						Codigo: {product.co_art}
+					</Text>
+
+					<Text style={styles.name} numberOfLines={2} ellipsizeMode='tail'>
+						Stock: {product.stock_act}
 					</Text>
 				</View>
-				<View style={styles.container}>
-					<View style={styles.row}>
-						<View style={[styles.box, styles.two]}>
-							<Quantity
-								quantity={quantity}
-								setQuantity={setQuantity}
-								setIsShowMessage={setIsShowMessage}
-								isShowMessage={isShowMessage}
-								stock_act={product.stock_act}
-							/>
-						</View>
-						<View style={[styles.box, styles.box2]}>
-							<IconButton
-								icon='check'
-								color={'green'}
-								size={30}
-								onPress={updateProductCart}
-							/>
-						</View>
-						<View style={[styles.box, styles.box2]}>
-							<IconButton
-								icon='delete'
-								color={'red'}
-								size={30}
-								onPress={deleteProductCart}
-							/>
-						</View>
+				<View style={styles.btnsContainer}>
+					<View style={styles.selectQuantity}>
+						{/* <Quantity
+							quantity={quantity}
+							setQuantity={updateProductCart}
+							setIsShowMessage={setIsShowMessage}
+							isShowMessage={isShowMessage}
+							stock_act={product.stock_act}
+						/> */}
+						<IconButton
+							icon='plus'
+							color='#fff'
+							size={19}
+							style={styles.btnQuantity}
+							onPress={increaseProductCart}
+						/>
+						<TextInput
+							value={product.quantity.toString()}
+							style={styles.inputQuantity}
+						/>
+						<IconButton
+							icon='minus'
+							color='#fff'
+							size={19}
+							style={styles.btnQuantity}
+							onPress={decreaseProductCart}
+						/>
 					</View>
+					<Button color='#b12704' icon='delete' onPress={deleteProductCart} />
 				</View>
+
 				<View style={styles.container}>
 					<View style={styles.row}>
 						<View style={[styles.box, styles.two]}>
@@ -119,7 +109,6 @@ export default function Product(props) {
 									(product.discount = 0)
 								)} $`}
 							</Text>
-							<Text style={styles.currentPrice}>{`${calUnidad(product)}`}</Text>
 						</View>
 
 						<View>
@@ -171,7 +160,7 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 	},
 	prices: {
-		flex: 1,
+		flexDirection: 'row',
 		marginTop: 5,
 		alignItems: 'flex-end',
 	},
@@ -180,7 +169,10 @@ const styles = StyleSheet.create({
 		color: '#b12704',
 	},
 	btnsContainer: {
-		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		position: 'relative',
+		width: '100%',
 	},
 	selectQuantity: {
 		flexDirection: 'row',

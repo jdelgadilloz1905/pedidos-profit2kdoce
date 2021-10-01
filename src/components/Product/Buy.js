@@ -26,8 +26,10 @@ export default function Actions(props) {
 						} else {
 							const response = await addProductCartApi(
 								product.co_art,
+								product.art_des,
 								quantity,
-								price
+								price,
+								stock_act
 							)
 							if (response) {
 								Alert.alert('Producto añadido al pedido')

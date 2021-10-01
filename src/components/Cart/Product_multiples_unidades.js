@@ -20,10 +20,27 @@ export default function Product(props) {
 	const [isShowMessage, setIsShowMessage] = useState(false) //verifico si el true lo agrego al carrito
 
 	const calcPrice = (price, discount) => {
-		if (!discount) return price
+		if (!discount) return parseFloat(price).toFixed(2)
 
 		const discountAmount = (price * discount) / 100
 		return (price - discountAmount).toFixed(2)
+	}
+
+	const calUnidad = (item) => {
+		console.log(
+			typeof product.price *
+				(product.uni_venta === 'UND'
+					? quantity *
+					  (parseInt(product.uni_relac) > 0 ? parseInt(product.uni_relac) : 1)
+					: quantity)
+		)
+		if (item.uni_venta === 'UND') {
+			return `${
+				quantity * (parseInt(item.uni_relac) > 0 ? parseInt(item.uni_relac) : 1)
+			} unidades`
+		} else {
+			return `${quantity} caja`
+		}
 	}
 
 	const deleteProductCart = async () => {
@@ -40,8 +57,8 @@ export default function Product(props) {
 		if (response) setReloadCart(true)
 	}
 
-	const updateProductCart = async (item) => {
-		const response = await updateProductCartApi(product.co_art, item)
+	const updateProductCart = async () => {
+		const response = await updateProductCartApi(product.co_art, quantity)
 		if (response) setReloadCart(true)
 	}
 
@@ -60,41 +77,66 @@ export default function Product(props) {
 					<Text style={styles.name} numberOfLines={3} ellipsizeMode='tail'>
 						{product.art_des}
 					</Text>
-					<View style={styles.prices}>
-						<Text style={styles.currentPrice}>
-							{`${calcPrice(product.prec_vta1, (product.discount = 0))} $`}
-						</Text>
+					<Text style={styles.name} numberOfLines={3} ellipsizeMode='tail'>
+						{`Código: ${product.co_art}`}
+					</Text>
+				</View>
+				<View style={styles.container}>
+					<View style={styles.row}>
+						<View style={[styles.box, styles.two]}>
+							<Quantity
+								quantity={quantity}
+								setQuantity={setQuantity}
+								setIsShowMessage={setIsShowMessage}
+								isShowMessage={isShowMessage}
+								stock_act={product.stock_act}
+							/>
+						</View>
+						<View style={[styles.box, styles.box2]}>
+							<IconButton
+								icon='check'
+								color={'green'}
+								size={30}
+								onPress={updateProductCart}
+							/>
+						</View>
+						<View style={[styles.box, styles.box2]}>
+							<IconButton
+								icon='delete'
+								color={'red'}
+								size={30}
+								onPress={deleteProductCart}
+							/>
+						</View>
 					</View>
 				</View>
-				<View style={styles.btnsContainer}>
-					<View style={styles.selectQuantity}>
-						<Quantity
-							quantity={quantity}
-							setQuantity={updateProductCart}
-							setIsShowMessage={setIsShowMessage}
-							isShowMessage={isShowMessage}
-							stock_act={product.stock_act}
-						/>
-						<IconButton
-							icon='plus'
-							color='#fff'
-							size={19}
-							style={styles.btnQuantity}
-							onPress={increaseProductCart}
-						/>
-						<TextInput
-							value={product.quantity.toString()}
-							style={styles.inputQuantity}
-						/>
-						<IconButton
-							icon='minus'
-							color='#fff'
-							size={19}
-							style={styles.btnQuantity}
-							onPress={decreaseProductCart}
-						/>
+				<View style={styles.container}>
+					<View style={styles.row}>
+						<View style={[styles.box, styles.two]}>
+							<Text style={styles.currentPrice}>
+								{`Precio: ${calcPrice(
+									product.price,
+									(product.discount = 0)
+								)} $`}
+							</Text>
+							<Text style={styles.currentPrice}>{`${calUnidad(product)}`}</Text>
+						</View>
+
+						<View>
+							<Text style={styles.currentPrice}>
+								{`Total: ${calcPrice(
+									product.price *
+										(product.uni_venta === 'UND'
+											? quantity *
+											  (parseInt(product.uni_relac) > 0
+													? parseInt(product.uni_relac)
+													: 1)
+											: quantity),
+									(product.discount = 0)
+								)} $`}
+							</Text>
+						</View>
 					</View>
-					<Button color='#b12704' icon='delete' onPress={deleteProductCart} />
 				</View>
 			</View>
 		</View>
@@ -126,22 +168,19 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	name: {
-		fontSize: 16,
+		fontSize: 14,
 	},
 	prices: {
-		flexDirection: 'row',
+		flex: 1,
 		marginTop: 5,
 		alignItems: 'flex-end',
 	},
 	currentPrice: {
-		fontSize: 18,
+		fontSize: 13,
 		color: '#b12704',
 	},
 	btnsContainer: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		position: 'relative',
-		width: '100%',
+		flex: 1,
 	},
 	selectQuantity: {
 		flexDirection: 'row',
@@ -155,5 +194,27 @@ const styles = StyleSheet.create({
 	inputQuantity: {
 		paddingHorizontal: 10,
 		fontSize: 16,
+	},
+	container: {
+		flex: 1,
+		flexDirection: 'row',
+	},
+	row: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		marginBottom: 10,
+	},
+	box: {
+		flex: 1,
+	},
+	box2: {
+		marginLeft: 20,
+	},
+	box3: {
+		backgroundColor: 'orange',
+	},
+	two: {
+		flex: 2,
 	},
 })

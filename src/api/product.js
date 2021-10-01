@@ -34,27 +34,27 @@ export async function searchProductsApi(search) {
 	}
 }
 
-export async function getProductApi(id) {
-	try {
-		const url = `${API_URL}/products/getProduct`
-		const params = {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json text/plain, */*',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				co_art: id,
-			}),
-		}
-		const response = await fetch(url, params)
-		const result = await response.json()
-
-		return result
-	} catch (error) {
-		console.log(error)
-		return null
-	}
+export async function getProductApi(co_art) {
+	//busco la informacion del producto
+	// try {
+	// 	const url = `${API_URL}/products/getProduct`
+	// 	const params = {
+	// 		method: 'POST',
+	// 		headers: {
+	// 			Accept: 'application/json text/plain, */*',
+	// 			'Content-Type': 'application/json',
+	// 		},
+	// 		body: JSON.stringify({
+	// 			co_art: id,
+	// 		}),
+	// 	}
+	// 	const response = await fetch(url, params)
+	// 	const result = await response.json()
+	// 	return result
+	// } catch (error) {
+	// 	console.log(error)
+	// 	return null
+	// }
 }
 
 /*===============================================
