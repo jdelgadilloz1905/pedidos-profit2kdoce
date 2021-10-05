@@ -114,13 +114,7 @@ export default function Product(props) {
 						<View>
 							<Text style={styles.currentPrice}>
 								{`Total: ${calcPrice(
-									product.price *
-										(product.uni_venta === 'UND'
-											? quantity *
-											  (parseInt(product.uni_relac) > 0
-													? parseInt(product.uni_relac)
-													: 1)
-											: quantity),
+									product.price * product.quantity,
 									(product.discount = 0)
 								)} $`}
 							</Text>
