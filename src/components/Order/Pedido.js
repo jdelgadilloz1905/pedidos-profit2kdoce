@@ -23,7 +23,7 @@ export default function Pedido(props) {
 		if (response.statusCode === 200) {
 			Alert.alert(response.mensaje)
 
-			//await deletePedidoApi(item.idPedido)
+			await deletePedidoApi(item.idPedido)
 			const pedidos = await getPedidosCartApi()
 
 			setPedidos(pedidos)

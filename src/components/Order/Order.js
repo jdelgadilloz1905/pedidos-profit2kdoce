@@ -17,13 +17,13 @@ export default function Order(props) {
 		<View style={styles.container}>
 			<View style={styles.info}>
 				<Text style={styles.name} numberOfLines={2} ellipsizeMode='tail'>
-					{`Pedido: ${order.fact_num}`}
+					{`Pedido: ${order.doc_num}`}
 				</Text>
 				<Text>{`Cliente: ${order.cli_des}`}</Text>
 				<Text>{`Estatus: ${order.estatus}`}</Text>
 				<View style={styles.btnsContainer}>
 					<View style={styles.centrartotNeto}>
-						<Text>{`Total neto: ${order.tot_neto}`} $</Text>
+						<Text>{`Total neto: ${order.total_neto}`} $</Text>
 					</View>
 					<Button
 						color='green'

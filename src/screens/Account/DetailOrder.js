@@ -10,7 +10,7 @@ export default function DetailOrder(props) {
 	return (
 		<ScrollView contentContainerStyle={styles.container}>
 			<Text style={styles.title}>
-				{`Detalle del pedido ${infoProduct[0].fact_num}`}{' '}
+				{`Detalle del pedido ${infoProduct[0].doc_num}`}{' '}
 			</Text>
 
 			{map(infoProduct, (item) => (

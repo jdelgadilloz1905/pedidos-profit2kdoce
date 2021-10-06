@@ -29,11 +29,11 @@ export default function Record() {
 	const [dateStart, setDateStart] = useState(new Date())
 	const [dateEnd, setDateEnd] = useState(new Date())
 	const [loading, setLoading] = useState(false)
-	useEffect(() => {
-		return () => {
-			''
-		}
-	}, [])
+	// useEffect(() => {
+	// 	return () => {
+	// 		''
+	// 	}
+	// }, [])
 	LogBox.ignoreAllLogs()
 	/*		//const fechaIni = `${dateStart.getFullYear}-${dateStart.getDate}-${dateStart.getMonth}`
 		//const fechaFin = `${dateEnd.getFullYear}-${dateEnd.getDate}-${dateEnd.getMonth}`

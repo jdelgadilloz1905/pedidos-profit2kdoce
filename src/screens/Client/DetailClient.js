@@ -3,18 +3,24 @@
 import React, { useState, useCallback } from 'react'
 import { StyleSheet, ScrollView, Alert, View } from 'react-native'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import { Button, Avatar, Card, Paragraph } from 'react-native-paper'
-import CuentaxCobrar from './CuentaxCobrar'
+import { Button, Avatar, Card, Paragraph, List } from 'react-native-paper'
+import Documentos from '../../components/Client/Documentos'
 import StatusBar from '../../components/StatusBar'
 import SearchClient from '../../components/Search/indexClient'
 import ScreenLoading from '../../components/ScreenLoading'
 import { getClientCartApi, addClientCartApi } from '../../api/cart'
+import { getCuentaxCobrar, getObtenerNotasEntrega } from '../../api/client'
 
 import colors from '../../styles/colors'
 
 export default function DetailClient(props) {
 	const [client, setClient] = useState(props.route.params.infoClient)
 	const [isAddCart, setIsAddCart] = useState(true) //validar si hay un cliente seleccionado
+	const [expanded, setExpanded] = React.useState(true)
+	const [cuentaXcobrar, setCuentaXcobrar] = useState(null)
+	const [isNotaEntrega, setNotaEntrega] = useState(null)
+
+	const handlePress = () => setExpanded(!expanded)
 
 	const [reloadClients, setReloadClients] = useState(false)
 	const navigation = useNavigation()
@@ -35,6 +41,15 @@ export default function DetailClient(props) {
 				} else {
 					setIsAddCart(true)
 				}
+
+				const responseCxC = await getCuentaxCobrar(client.co_cli)
+
+				if (responseCxC.statusCode === 200)
+					setCuentaXcobrar(responseCxC.infoFacturaPendiente)
+
+				const responseNE = await getObtenerNotasEntrega(client.co_cli)
+				if (responseNE.statusCode === 200)
+					setNotaEntrega(responseNE.infoNotaEntrega)
 			})()
 
 			setReloadClients(false)
@@ -49,6 +64,32 @@ export default function DetailClient(props) {
 		} else {
 			Alert.alert('ERROR al añadir el cliente, consulte con el Administrador')
 		}
+	}
+
+	const infoClienteAdmin = () => {
+		return (
+			<List.Section title='Datos Administrativo'>
+				<List.Accordion
+					title='Facturas Pendiente'
+					left={(props) => <List.Icon {...props} icon='folder' />}>
+					<Documentos
+						datos={cuentaXcobrar}
+						title={'No tiene Factura pendiente'}
+					/>
+				</List.Accordion>
+
+				<List.Accordion
+					title='Notas de Entrega'
+					left={(props) => <List.Icon {...props} icon='folder' />}
+					expanded={expanded}
+					onPress={handlePress}>
+					<Documentos
+						datos={isNotaEntrega}
+						title={'No tiene Notas de Entrega'}
+					/>
+				</List.Accordion>
+			</List.Section>
+		)
 	}
 	return (
 		<>
@@ -73,18 +114,27 @@ export default function DetailClient(props) {
 							</Card.Content>
 
 							<Card.Actions>
-								<Button
-									mode='contained'
-									contentStyle={styles.btnBuyContent}
-									labelStyle={styles.btnLabel}
-									style={styles.btn}
-									onPress={addClientCart}>
-									{isAddCart ? 'Añadir al pedido' : 'Cambiar cliente'}
-								</Button>
+								<View style={styles.btnsContainer}>
+									<Button
+										mode='contained'
+										contentStyle={styles.btnBuyContent}
+										labelStyle={styles.btnLabel}
+										style={styles.btn}
+										onPress={addClientCart}>
+										{isAddCart ? 'Añadir al pedido' : 'Cambiar cliente'}
+									</Button>
+									<Button
+										mode='contained'
+										contentStyle={styles.btnBuyContent}
+										labelStyle={styles.btnLabel}
+										style={styles.btn}
+										onPress={addClientCart}>
+										Cuenta x Cobrar
+									</Button>
+								</View>
 							</Card.Actions>
 						</Card>
-
-						{/* <CuentaxCobrar client={client} /> */}
+						{infoClienteAdmin()}
 					</ScrollView>
 				</>
 			)}
@@ -119,5 +169,11 @@ const styles = StyleSheet.create({
 		padding: 20,
 		fontSize: 18,
 		fontWeight: 'bold',
+	},
+	btnsContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		position: 'relative',
+		width: '100%',
 	},
 })
