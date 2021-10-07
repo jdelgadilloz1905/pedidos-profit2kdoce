@@ -25,13 +25,17 @@ export default function Documentos(props) {
 				<List.Section>
 					{map(datos, (item) => (
 						<List.Item
-							key={item.doc_num}
-							title={`Nro Doc: ${item.doc_num}`}
+							key={item.id}
+							title={`Tipo: ${item.co_tipo_doc}`}
 							description={
 								<>
 									<View style={styles.btnsContainer}>
+										<Text>{`Nro Doc: ${item.nro_doc}`}</Text>
 										<Text>{`Fecha emisión: ${item.fec_emis}`}</Text>
-										<Text>{`   Saldo: ${item.saldo} $`}</Text>
+									</View>
+
+									<View style={styles.btnsContainer}>
+										<Text>{`Total: ${item.total_neto} $`}</Text>
 									</View>
 								</>
 							}

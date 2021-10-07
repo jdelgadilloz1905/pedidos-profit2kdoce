@@ -6,6 +6,7 @@ export const API_URL = 'http://192.168.3.35:8080/apipedidosprofit2kdoce'
 //export const API_URL = 'http://grupodh.dyndns.org:8080/apiPedidosProfit'
 export const API_URL_LICENCE = 'https://estudio57.net/apilicenciasweb/api'
 //export const API_URL = 'https://react-native-ecommerce-dev.herokuapp.com'
+
 export const TOKEN = 'token'
 export const SEARCH_HISTORY = 'search-history'
 export const SEARCH_HISTORY_CLIENT = 'search-history-client'

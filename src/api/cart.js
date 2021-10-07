@@ -12,6 +12,7 @@ import {
 	FORMA_PAGO,
 	TRANSPORTE,
 	PRECIOS,
+	API_URL_LICENCE,
 } from '../utils/constants'
 
 export async function getProductCartApi() {
@@ -238,13 +239,13 @@ export async function paymentCartApi(
 		}
 		const response = await fetch(url, params)
 		const result = await response.json()
-
 		return result
 	} catch (error) {
 		console.log(error)
 		return null
 	}
 }
+
 ////////////////////////////////////////
 export async function deleteCartApi() {
 	try {
@@ -319,7 +320,8 @@ export async function getCalculatePrice(item) {
 
 		if (newListPre.length !== 0) {
 			const newPrecio = filter(newListPre, (precio) => {
-				return precio.co_precio.indexOf(datosUSer.tipo_precio.trim()) > -1
+				//return precio.co_precio.indexOf(datosUSer.tipo_precio.trim()) > -1
+				return precio.co_precio > 0
 			})
 
 			return parseFloat(newPrecio[0].monto).toFixed(2)

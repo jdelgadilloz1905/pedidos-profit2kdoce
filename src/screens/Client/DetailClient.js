@@ -4,12 +4,17 @@ import React, { useState, useCallback } from 'react'
 import { StyleSheet, ScrollView, Alert, View } from 'react-native'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { Button, Avatar, Card, Paragraph, List } from 'react-native-paper'
+import Cobros from './CuentaxCobrar'
 import Documentos from '../../components/Client/Documentos'
 import StatusBar from '../../components/StatusBar'
 import SearchClient from '../../components/Search/indexClient'
 import ScreenLoading from '../../components/ScreenLoading'
 import { getClientCartApi, addClientCartApi } from '../../api/cart'
-import { getCuentaxCobrar, getObtenerNotasEntrega } from '../../api/client'
+import {
+	getCuentaxCobrar,
+	getObtenerNotasEntrega,
+	getObtenerCobrosCliente,
+} from '../../api/client'
 
 import colors from '../../styles/colors'
 
@@ -19,6 +24,7 @@ export default function DetailClient(props) {
 	const [expanded, setExpanded] = React.useState(true)
 	const [cuentaXcobrar, setCuentaXcobrar] = useState(null)
 	const [isNotaEntrega, setNotaEntrega] = useState(null)
+	const [isCobros, setCobros] = useState(null)
 
 	const handlePress = () => setExpanded(!expanded)
 
@@ -50,6 +56,10 @@ export default function DetailClient(props) {
 				const responseNE = await getObtenerNotasEntrega(client.co_cli)
 				if (responseNE.statusCode === 200)
 					setNotaEntrega(responseNE.infoNotaEntrega)
+
+				const responseCobros = await getObtenerCobrosCliente(client.co_cli)
+				if (responseCobros.statusCode === 200)
+					setCobros(responseCobros.infoCobros)
 			})()
 
 			setReloadClients(false)
@@ -80,16 +90,23 @@ export default function DetailClient(props) {
 
 				<List.Accordion
 					title='Notas de Entrega'
-					left={(props) => <List.Icon {...props} icon='folder' />}
-					expanded={expanded}
-					onPress={handlePress}>
+					left={(props) => <List.Icon {...props} icon='folder' />}>
 					<Documentos
 						datos={isNotaEntrega}
 						title={'No tiene Notas de Entrega'}
 					/>
 				</List.Accordion>
+				<List.Accordion
+					title='Cobros'
+					left={(props) => <List.Icon {...props} icon='folder' />}>
+					<Cobros datos={isCobros} title={'Cobros'} />
+				</List.Accordion>
 			</List.Section>
 		)
+	}
+
+	const infoCuentasxCobrar = () => {
+		return
 	}
 	return (
 		<>
@@ -122,14 +139,6 @@ export default function DetailClient(props) {
 										style={styles.btn}
 										onPress={addClientCart}>
 										{isAddCart ? 'Añadir al pedido' : 'Cambiar cliente'}
-									</Button>
-									<Button
-										mode='contained'
-										contentStyle={styles.btnBuyContent}
-										labelStyle={styles.btnLabel}
-										style={styles.btn}
-										onPress={addClientCart}>
-										Cuenta x Cobrar
 									</Button>
 								</View>
 							</Card.Actions>

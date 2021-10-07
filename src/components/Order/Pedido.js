@@ -4,7 +4,11 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Text, Alert, ActivityIndicator } from 'react-native'
 import { Button } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
-import { appCreatePedidosProfit, deletePedidoApi } from '../../api/order'
+import {
+	appCreatePedidosProfit,
+	deletePedidoApi,
+	enviarEmailAddPedido,
+} from '../../api/order'
 
 export default function Pedido(props) {
 	const { pedido, setReloadCart, setPedidos, getPedidosCartApi } = props
@@ -23,7 +27,10 @@ export default function Pedido(props) {
 		if (response.statusCode === 200) {
 			Alert.alert(response.mensaje)
 
+			const resultadoEmail = await enviarEmailAddPedido(item, response.pedido)
+
 			await deletePedidoApi(item.idPedido)
+
 			const pedidos = await getPedidosCartApi()
 
 			setPedidos(pedidos)

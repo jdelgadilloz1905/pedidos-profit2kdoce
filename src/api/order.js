@@ -1,6 +1,12 @@
 /** @format */
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { API_URL, SUCURSAL, ALMACEN, PEDIDOS } from '../utils/constants'
+import {
+	API_URL,
+	SUCURSAL,
+	ALMACEN,
+	PEDIDOS,
+	API_URL_LICENCE,
+} from '../utils/constants'
 import { filter } from 'lodash'
 
 export async function getOrdersApi(auth) {
@@ -79,7 +85,42 @@ export async function appCreatePedidosProfit(item) {
 		}
 		const response = await fetch(url, params)
 		const result = await response.json()
-		console.log(result)
+
+		return result
+	} catch (error) {
+		console.log(error)
+		return null
+	}
+}
+
+export async function enviarEmailAddPedido(item, pedido) {
+	const co_user = item.datoUser.id
+	const co_ven = item.datoUser.co_ven
+
+	try {
+		const url = `${API_URL_LICENCE}/profit2kdoce/enviar-nuevo-pedido`
+		const params = {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				doc_num: pedido,
+				products: item.products,
+				client: item.client,
+				co_user: co_user,
+				total_neto: item.totalPayment,
+				transporte: item.transporte,
+				formaPago: item.formaPago,
+				sucursal: SUCURSAL,
+				co_ven: co_ven,
+				co_alma: ALMACEN,
+			}),
+		}
+		const response = await fetch(url, params)
+		const result = await response.json()
+
 		return result
 	} catch (error) {
 		console.log(error)

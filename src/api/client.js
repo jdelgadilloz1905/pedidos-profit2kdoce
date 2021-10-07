@@ -156,6 +156,29 @@ export async function getObtenerNotasEntrega(item) {
 	}
 }
 
+export async function getObtenerCobrosCliente(item) {
+	try {
+		const url = `${API_URL}/clients/documentos-cliente`
+		const params = {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json text/plain, */*',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				co_cli: item,
+			}),
+		}
+		const response = await fetch(url, params)
+		const result = await response.json()
+
+		return result
+	} catch (error) {
+		console.log(error)
+		return null
+	}
+}
+
 export async function getAllClientesApi(limit = 30) {
 	try {
 		const url = `${API_URL}/clients/all`
