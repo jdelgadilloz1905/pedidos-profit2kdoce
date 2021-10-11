@@ -8,6 +8,7 @@ import { List } from 'react-native-paper'
 import { map } from 'lodash'
 
 import colors from '../../styles/colors'
+import { MONEDA } from '../../utils/constants'
 
 export default function Documentos(props) {
 	//realizo un useEffect para hacer la busque de las cuentas por cobrar del cliente
@@ -35,7 +36,7 @@ export default function Documentos(props) {
 									</View>
 
 									<View style={styles.btnsContainer}>
-										<Text>{`Total: ${item.total_neto} $`}</Text>
+										<Text>{`Total: ${item.total_neto} ${MONEDA}`}</Text>
 									</View>
 								</>
 							}

@@ -8,6 +8,7 @@ import { List } from 'react-native-paper'
 import { map } from 'lodash'
 
 import colors from '../../styles/colors'
+import { MONEDA } from '../../utils/constants'
 
 export default function Documentos(props) {
 	//realizo un useEffect para hacer la busque de las cuentas por cobrar del cliente
@@ -31,7 +32,7 @@ export default function Documentos(props) {
 								<>
 									<View style={styles.btnsContainer}>
 										<Text>{`Fecha emisión: ${item.fec_emis}`}</Text>
-										<Text>{`   Saldo: ${item.saldo} $`}</Text>
+										<Text>{`   Saldo: ${item.saldo} ${MONEDA}`}</Text>
 									</View>
 								</>
 							}

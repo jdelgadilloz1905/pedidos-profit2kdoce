@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import SearchClient from '../screens/Client/Search'
 import Client from '../screens/Client/Client'
 import DetailClient from '../screens/Client/DetailClient'
+import RegisterClient from '../screens/Client/RegisterClient'
 
 import colors from '../styles/colors'
 
@@ -34,6 +35,11 @@ export default function CartStack() {
 			<Stack.Screen
 				name='search-client'
 				component={SearchClient}
+				options={{ headerShown: false }}
+			/>
+			<Stack.Screen
+				name='create-client'
+				component={RegisterClient}
 				options={{ headerShown: false }}
 			/>
 		</Stack.Navigator>

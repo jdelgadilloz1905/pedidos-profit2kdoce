@@ -9,6 +9,7 @@ import {
 	deletePedidoApi,
 	enviarEmailAddPedido,
 } from '../../api/order'
+import { MONEDA } from '../../utils/constants'
 
 export default function Pedido(props) {
 	const { pedido, setReloadCart, setPedidos, getPedidosCartApi } = props
@@ -86,7 +87,7 @@ export default function Pedido(props) {
 				<Text>{`Estatus: No sincronizado`}</Text>
 				<View style={styles.btnsContainer}>
 					<View style={styles.centrartotNeto}>
-						<Text>{`Total: ${pedido.datos.totalPayment}`} $</Text>
+						<Text>{`Total: ${pedido.datos.totalPayment} ${MONEDA}`} </Text>
 					</View>
 					<Button
 						color='green'

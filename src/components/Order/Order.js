@@ -4,6 +4,7 @@ import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { Button } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
+import { MONEDA } from '../../utils/constants'
 
 export default function Order(props) {
 	const { order } = props
@@ -23,7 +24,7 @@ export default function Order(props) {
 				<Text>{`Estatus: ${order.estatus}`}</Text>
 				<View style={styles.btnsContainer}>
 					<View style={styles.centrartotNeto}>
-						<Text>{`Total neto: ${order.total_neto}`} $</Text>
+						<Text>{`Total neto: ${order.total_neto} ${MONEDA}`} </Text>
 					</View>
 					<Button
 						color='green'

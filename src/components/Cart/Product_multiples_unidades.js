@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, Image, TextInput } from 'react-native'
 import { Button, IconButton } from 'react-native-paper'
-import { API_URL } from '../../utils/constants'
+import { MONEDA } from '../../utils/constants'
 import {
 	deleteProductCartApi,
 	decreaseProductCartApi,
@@ -117,7 +117,7 @@ export default function Product(props) {
 								{`Precio: ${calcPrice(
 									product.price,
 									(product.discount = 0)
-								)} $`}
+								)} ${MONEDA}`}
 							</Text>
 							<Text style={styles.currentPrice}>{`${calUnidad(product)}`}</Text>
 						</View>
@@ -133,7 +133,7 @@ export default function Product(props) {
 													: 1)
 											: quantity),
 									(product.discount = 0)
-								)} $`}
+								)} ${MONEDA}`}
 							</Text>
 						</View>
 					</View>

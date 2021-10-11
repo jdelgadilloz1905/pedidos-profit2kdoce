@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native'
 import { Button, IconButton } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 
-import { API_URL } from '../../utils/constants'
+import { MONEDA } from '../../utils/constants'
 import { deleteFavoriteApi } from '../../api/favorite'
 import colors from '../../styles/colors'
 
@@ -42,7 +42,7 @@ export default function Product(props) {
 					</Text>
 					<View style={styles.prices}>
 						<Text style={styles.currentPrice}>
-							{parseFloat(item.prec_vta1).toFixed(2)} $
+							{`${parseFloat(item.prec_vta1).toFixed(2)} ${MONEDA}`}
 						</Text>
 					</View>
 				</View>

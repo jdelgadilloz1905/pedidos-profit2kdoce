@@ -204,6 +204,7 @@ export async function getVendedorApi(limit = 30) {
 		return null
 	}
 }
+
 export async function validateLicenceApi(formData) {
 	//validar que no exista esas variables en el localStorage
 	const datos_licencia = await AsyncStorage.getItem(DATOS_LICENCIA)

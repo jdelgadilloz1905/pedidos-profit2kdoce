@@ -15,7 +15,7 @@ import Buy from '../../components/Product/Buy'
 import Favorite from '../../components/Product/Favorite'
 import { getProductApi } from '../../api/product'
 import colors from '../../styles/colors'
-import { PRECIOS, UNIDAD, STOCK } from '../../utils/constants'
+import { PRECIOS, UNIDAD, STOCK, MONEDA } from '../../utils/constants'
 
 import { filter } from 'lodash'
 
@@ -50,7 +50,7 @@ export default function Product(props) {
 				listaPrecio[index] = {
 					label: `Precio ${a.co_precio.replace(/ /g, '')}  ->  ${parseFloat(
 						a.monto
-					).toFixed(2)} $`,
+					).toFixed(2)} ${MONEDA}`,
 					value: parseFloat(a.monto).toFixed(2),
 				}
 			})

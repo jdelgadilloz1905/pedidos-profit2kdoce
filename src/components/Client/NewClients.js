@@ -2,9 +2,9 @@
 
 import React, { useState, useCallback } from 'react'
 import { StyleSheet, View, Text, Alert } from 'react-native'
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { size } from 'lodash'
-import { Button } from 'react-native-paper'
+import { Button, FAB, Portal, Provider } from 'react-native-paper'
 
 import ListClient from './ListClient'
 import StatusBar from '../StatusBar'
@@ -16,6 +16,7 @@ import { getLastClientsApi, getAllClientesApi } from '../../api/client'
 export default function NewClients() {
 	const [clients, setClients] = useState(null)
 	const [reloadClients, setReloadClients] = useState(false)
+	const navigation = useNavigation()
 
 	useFocusEffect(
 		useCallback(() => {
@@ -52,6 +53,9 @@ export default function NewClients() {
 
 		setClients(response)
 	}
+	const goToAddClient = () => {
+		navigation.push('create-client')
+	}
 
 	return (
 		<>
@@ -84,6 +88,16 @@ export default function NewClients() {
 					<ListClient clients={clients} />
 				</View>
 			)}
+			<Provider>
+				<Portal>
+					<FAB
+						style={styles.fab}
+						small
+						icon='plus'
+						onPress={() => goToAddClient()}
+					/>
+				</Portal>
+			</Provider>
 		</>
 	)
 }
@@ -121,5 +135,11 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.primary,
 		borderRadius: 5,
 		margin: 0,
+	},
+	fab: {
+		position: 'absolute',
+		margin: 16,
+		right: 0,
+		bottom: 0,
 	},
 })

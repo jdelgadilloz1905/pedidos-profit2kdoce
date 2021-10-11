@@ -12,6 +12,7 @@ import { deleteClientApi } from '../../api/client'
 import useAuth from '../../hooks/useAuth'
 
 import colors from '../../styles/colors'
+import { MONEDA } from '../../utils/constants'
 
 export default function Payment(props) {
 	const { totalPayment, products, client, formaPago, transporte } = props
@@ -106,7 +107,7 @@ export default function Payment(props) {
 		<View style={styles.continer}>
 			<Text style={styles.containerTitle}>
 				Total Pedido{' '}
-				{totalPayment && `(${parseFloat(totalPayment).toFixed(2)} $)`}
+				{totalPayment && `(${parseFloat(totalPayment).toFixed(2)} ${MONEDA})`}
 			</Text>
 
 			<Button

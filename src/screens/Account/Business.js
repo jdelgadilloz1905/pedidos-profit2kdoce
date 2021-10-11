@@ -12,6 +12,8 @@ import { getTasaApi } from '../../api/product'
 import StatusBar from '../../components/StatusBar'
 
 import colors from '../../styles/colors'
+import { MONEDA } from '../../utils/constants'
+
 import { formStyle } from '../../styles'
 
 export default function Business() {
@@ -61,12 +63,12 @@ export default function Business() {
 								CALLE ROSCIO LOCAL NRO. 13-1 SECTOR CENTRO SAN JUANDE LOS MORROS
 								GUARICO
 							</Paragraph>
-							<Paragraph>Moneda $</Paragraph>
+							<Paragraph> {`Moneda: ${MONEDA}`}</Paragraph>
 
 							<Paragraph>Codigo DHHDIV_A</Paragraph>
 
 							<Paragraph>
-								Tasa del dia: {parseFloat(business.tasa_v).toFixed(2)} $
+								Tasa del dia: {parseFloat(business.tasa_v).toFixed(2)} {MONEDA}
 							</Paragraph>
 							<Paragraph>Ultima actualización: {business.fecha}</Paragraph>
 

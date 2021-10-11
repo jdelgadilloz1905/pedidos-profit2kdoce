@@ -1,7 +1,7 @@
 /** @format */
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { API_URL, CLIENT, CLIENTES } from '../utils/constants'
+import { API_URL, CLIENT, CLIENTES, SUCURSAL } from '../utils/constants'
 import { filter } from 'lodash'
 export async function searchClientsApi(search) {
 	try {
@@ -196,6 +196,82 @@ export async function getAllClientesApi(limit = 30) {
 		return result
 	} catch (error) {
 		console.log('error es : ' + error)
+		return null
+	}
+}
+
+export async function getOptionsClient() {
+	try {
+		const url = `${API_URL}/clients/buscar-options`
+		const params = {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+		}
+		const response = await fetch(url, params)
+		const result = await response.json()
+
+		return result
+	} catch (error) {
+		console.log('error es : ' + error)
+		return null
+	}
+}
+
+export async function registerClientApi(
+	formData,
+	condicion,
+	tipo,
+	segmento,
+	auth
+) {
+	const co_ven = JSON.parse(auth.token).co_ven
+	console.log('antes')
+	console.log(
+		'aqui hay algo ',
+		JSON.stringify({
+			nombre: formData.nombre,
+			rif: formData.rif,
+			direccion: formData.direccion,
+			email: formData.email,
+			telefono: formData.telefono,
+			responsable: formData.responsable,
+			tipo: tipo,
+			condicion: condicion,
+			segmento: segmento,
+			co_ven: co_ven,
+			sucursal: SUCURSAL,
+		})
+	)
+	try {
+		const url = `${API_URL}/clients/client-register11`
+		const params = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				nombre: formData.nombre,
+				rif: formData.rif,
+				direccion: formData.direccion,
+				email: formData.email,
+				telefono: formData.telefono,
+				responsable: formData.responsable,
+				tipo: tipo,
+				conddicion: condicion,
+				segmento: segmento,
+				co_ven: co_ven,
+				sucursal: SUCURSAL,
+			}),
+		}
+		const response = await fetch(url, params)
+		const result = await response.json()
+
+		return result
+	} catch (error) {
+		console.log(error)
 		return null
 	}
 }

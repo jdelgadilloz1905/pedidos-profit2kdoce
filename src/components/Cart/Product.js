@@ -12,6 +12,7 @@ import {
 } from '../../api/cart'
 import Quantity from '../../components/Product/Quantity'
 import colors from '../../styles/colors'
+import { MONEDA } from '../../utils/constants'
 
 export default function Product(props) {
 	const { product, setReloadCart } = props
@@ -107,7 +108,7 @@ export default function Product(props) {
 								{`Precio: ${calcPrice(
 									product.price,
 									(product.discount = 0)
-								)} $`}
+								)} ${MONEDA}`}
 							</Text>
 						</View>
 
@@ -116,7 +117,7 @@ export default function Product(props) {
 								{`Total: ${calcPrice(
 									product.price * product.quantity,
 									(product.discount = 0)
-								)} $`}
+								)} ${MONEDA}`}
 							</Text>
 						</View>
 					</View>

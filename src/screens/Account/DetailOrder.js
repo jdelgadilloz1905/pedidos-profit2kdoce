@@ -3,6 +3,7 @@
 import React from 'react'
 import { StyleSheet, ScrollView, View, Text } from 'react-native'
 import { map } from 'lodash'
+import { MONEDA } from '../../utils/constants'
 
 export default function DetailOrder(props) {
 	const infoProduct = props.route.params.infoProduct
@@ -23,13 +24,13 @@ export default function DetailOrder(props) {
 							<View style={styles.prices}>
 								<Text style={styles.currentPrice}>{`Precio: ${parseFloat(
 									item.prec_vta
-								).toFixed(2)} $`}</Text>
+								).toFixed(2)} ${MONEDA}`}</Text>
 								<Text style={styles.currentPrice}>{`Cantidad: ${parseFloat(
 									item.total_art
 								).toFixed(2)} `}</Text>
 								<Text style={styles.currentPrice}>{`Total: ${parseFloat(
 									item.total_art * parseFloat(item.prec_vta).toFixed(2)
-								).toFixed(2)} `}</Text>
+								).toFixed(2)} ${MONEDA}`}</Text>
 							</View>
 						</View>
 					</View>
