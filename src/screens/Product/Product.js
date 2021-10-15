@@ -38,6 +38,7 @@ export default function Product(props) {
 	const buscarPreciosArt = async (item) => {
 		/*Busco el precio del producto */
 		const precios = await AsyncStorage.getItem(PRECIOS)
+		console.log('Mis precios ', precios)
 		const datosPrecio = JSON.parse(precios)
 		const newListPre = filter(datosPrecio, (product) => {
 			return product.co_art.toLowerCase().indexOf(item.toLowerCase()) > -1
