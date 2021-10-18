@@ -45,6 +45,7 @@ export default function RegisterClient() {
 			setLoading(true)
 			setUploading(true)
 			try {
+				
 				response = await registerClientApi(
 					formData,
 					isSelectCondicio,
@@ -193,12 +194,12 @@ export default function RegisterClient() {
 
 function initialValues() {
 	return {
-		nombre: 'unidad',
-		rif: '1659879555',
-		direccion: 'santa paula',
-		telefono: '6545645665',
-		email: 'jdelha@gmail.com',
-		responsable: 'cataluya',
+		nombre: '',
+		rif: '',
+		direccion: '',
+		telefono: '',
+		email: '',
+		responsable: '',
 	}
 }
 

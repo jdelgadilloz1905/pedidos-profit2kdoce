@@ -216,7 +216,7 @@ export async function getPrecioProducto() {
 				}
 				const response = await fetch(url, params)
 				const result = await response.json()
-				console.log('mis precios nuevos es ', result)
+				
 				if (result.statusCode === 200) {
 					//almaceno la info en el localStorage
 

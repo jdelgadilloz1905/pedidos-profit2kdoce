@@ -28,6 +28,8 @@ import {
 	getClientCartApi,
 	getCalculatePrice,
 } from '../../api/cart'
+import { getBuscarStockArt } from '../../api/product'
+
 import { size } from 'lodash'
 
 import Quantity from '../../components/Product/Quantity'
@@ -65,11 +67,18 @@ export default function ListProduct(props) {
 
 			navigation.navigate('client')
 		} else {
-			//levanto el modal y luego cuando coloque la cantidad es que comienzo a cargar el ReloarCart
-
-			setStockActual(item.stock_act)
-			setCoArt(item.co_art)
-			setVisible(true)
+			let stock_actual = await getBuscarStockArt(item.co_art)
+			
+			if(stock_actual >0){
+				setStockActual(stock_actual)
+				setCoArt(item.co_art)
+				setVisible(true)
+			}else{
+			
+				Alert.alert('No dispone de stock en el inventario ProductList')
+			}	
+			
+			
 		}
 
 		setReloadCart(false)
@@ -80,7 +89,7 @@ export default function ListProduct(props) {
 		//VALIDAR SI HA SELECCIONADO UN CLIENTE
 
 		const price = await getCalculatePrice(item2)
-
+		
 		const response = await addProductCartApi(
 			item2.co_art,
 			item2.art_des,

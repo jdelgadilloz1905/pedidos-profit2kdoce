@@ -228,25 +228,9 @@ export async function registerClientApi(
 	auth
 ) {
 	const co_ven = JSON.parse(auth.token).co_ven
-	console.log('antes')
-	console.log(
-		'aqui hay algo ',
-		JSON.stringify({
-			nombre: formData.nombre,
-			rif: formData.rif,
-			direccion: formData.direccion,
-			email: formData.email,
-			telefono: formData.telefono,
-			responsable: formData.responsable,
-			tipo: tipo,
-			condicion: condicion,
-			segmento: segmento,
-			co_ven: co_ven,
-			sucursal: SUCURSAL,
-		})
-	)
+	
 	try {
-		const url = `${API_URL}/clients/client-register11`
+		const url = `${API_URL}/clients/client-register`
 		const params = {
 			method: 'POST',
 			headers: {
@@ -260,7 +244,7 @@ export async function registerClientApi(
 				telefono: formData.telefono,
 				responsable: formData.responsable,
 				tipo: tipo,
-				conddicion: condicion,
+				condicion: condicion,
 				segmento: segmento,
 				co_ven: co_ven,
 				sucursal: SUCURSAL,

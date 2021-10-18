@@ -67,10 +67,15 @@ export default function ListProduct(props) {
 			//levanto el modal y luego cuando coloque la cantidad es que comienzo a cargar el ReloarCart
 			//busco el stock para actualizar la variable
 			let stock_actual = await getBuscarStockArt(item.co_art)
-
-			setStockActual(stock_actual)
-			setCoArt(item.co_art)
-			setVisible(true)
+			
+			if(stock_actual >0){
+				setStockActual(stock_actual)
+				setCoArt(item.co_art)
+				setVisible(true)
+			}else{
+			
+				Alert.alert('No dispone de stock en el inventario ListProduct')
+			}			
 		}
 
 		setReloadCart(false)
@@ -81,7 +86,7 @@ export default function ListProduct(props) {
 		//VALIDAR SI HA SELECCIONADO UN CLIENTE
 
 		const price = await getCalculatePrice(item2)
-
+	
 		const response = await addProductCartApi(
 			item2.co_art,
 			item2.art_des,
