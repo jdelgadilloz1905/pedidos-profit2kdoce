@@ -1,7 +1,7 @@
 /** @format */
 
-//export const API_URL = 'http://192.168.3.35:8080/apipedidosprofit2kdoce'
-export const API_URL = 'http://localhost/apipedidosprofit2kdoce'
+export const API_URL = 'http://192.168.3.35:8080/apipedidosprofit2kdoce'
+//export const API_URL = 'http://localhost/apipedidosprofit2kdoce'
 //export const API_URL = 'http://192.168.0.106/apipedidosprofit'
 //export const API_URL = 'http://192.168.10.119:8080/apipedidosprofit'
 //export const API_URL = 'http://grupodh.dyndns.org:8080/apiPedidosProfit'
@@ -34,3 +34,4 @@ export const DATOS_LICENCIA = 'serial'
 export const ID_EMPRESA = 'id_empresa'
 export const FECHA_VALIDEZ = 'fecha_validez'
 export const FECHA_ACTIVACION = 'fecha_activacion'
+export const SERIAL_APP = 'fll7xckytcyjuvzlie08t2yhs3cqqguvx3jj7v1a6miy35pb3q'

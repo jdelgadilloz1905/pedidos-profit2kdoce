@@ -68,17 +68,14 @@ export default function ListProduct(props) {
 			navigation.navigate('client')
 		} else {
 			let stock_actual = await getBuscarStockArt(item.co_art)
-			
-			if(stock_actual >0){
+
+			if (stock_actual > 0) {
 				setStockActual(stock_actual)
 				setCoArt(item.co_art)
 				setVisible(true)
-			}else{
-			
-				Alert.alert('No dispone de stock en el inventario ProductList')
-			}	
-			
-			
+			} else {
+				Alert.alert('No dispone de stock en el inventario')
+			}
 		}
 
 		setReloadCart(false)
@@ -89,7 +86,7 @@ export default function ListProduct(props) {
 		//VALIDAR SI HA SELECCIONADO UN CLIENTE
 
 		const price = await getCalculatePrice(item2)
-		
+
 		const response = await addProductCartApi(
 			item2.co_art,
 			item2.art_des,

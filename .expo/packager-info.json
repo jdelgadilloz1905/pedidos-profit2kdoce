@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 16628,
-  "expoServerNgrokUrl": "https://5j-s49.jdelgadillo.pedidos-profit2kdoce.exp.direct",
-  "packagerNgrokUrl": "https://packager.5j-s49.jdelgadillo.pedidos-profit2kdoce.exp.direct",
-  "ngrokPid": 15768,
+  "packagerPort": 19000,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }

@@ -22,6 +22,7 @@ import { getLicenceApi, removeLicenceApi } from '../../api/token'
 
 import colors from '../../styles/colors'
 import { formStyle } from '../../styles'
+import { SERIAL_APP } from '../../utils/constants'
 
 export default function ChangeLicence() {
 	const [loading, setLoading] = useState(false)
@@ -36,7 +37,7 @@ export default function ChangeLicence() {
 				const data = await getLicenceApi()
 
 				if (data) setDatosLicencia(JSON.parse(data))
-				await formik.setFieldValue('serial', '') //ocuvvblta48izsf8psw1dtt4
+				await formik.setFieldValue('serial', SERIAL_APP) //ocuvvblta48izsf8psw1dtt4
 			})()
 		}, [])
 	)
@@ -82,13 +83,14 @@ export default function ChangeLicence() {
 					value={formik.values.serial}
 					error={formik.errors.serial}
 					autoCapitalize='none'
+					disabled
 				/>
 				<Button
 					mode='contained'
 					style={formStyle.btnSucces}
 					onPress={formik.handleSubmit}
 					loading={loading}>
-					Cambiar licencia
+					Activar licencia
 				</Button>
 			</View>
 			{datosLicencia !== null ? (

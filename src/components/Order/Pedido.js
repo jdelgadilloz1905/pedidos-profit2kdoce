@@ -1,7 +1,15 @@
 /** @format */
 
-import React, { useState } from 'react'
-import { StyleSheet, View, Text, Alert, ActivityIndicator } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import {
+	StyleSheet,
+	View,
+	Text,
+	Alert,
+	ActivityIndicator,
+	Platform,
+} from 'react-native'
+import * as Location from 'expo-location'
 import { Button } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import {
@@ -9,36 +17,143 @@ import {
 	deletePedidoApi,
 	enviarEmailAddPedido,
 } from '../../api/order'
+import { getLicenceApi, removeLicenceApi } from '../../api/token'
 import { MONEDA } from '../../utils/constants'
 
 export default function Pedido(props) {
 	const { pedido, setReloadCart, setPedidos, getPedidosCartApi } = props
+
+	const [displayCurrentAddress, setDisplayCurrentAddress] = useState('')
+	const [locationServiceEnabled, setLocationServiceEnabled] = useState(false)
+	const [isLicencia, setLicencia] = useState(null)
+
 	const navigation = useNavigation()
 
 	const handleShowProducts = async (item) => {
 		navigation.navigate('detail-pedido', { infoProduct: item })
 	}
 
+	useEffect(() => {
+		CheckIfLocationEnabled()
+		requestLocationPermission()
+		validateLicencia()
+	}, [])
+
+	const validateLicencia = async () => {
+		const data = await getLicenceApi()
+
+		if (data) {
+			setLicencia(JSON.parse(data))
+		} else {
+			Alert.alert(
+				'versión Demo',
+				'Para exportar los datos debe activar la licencia o contacte con el administrador',
+				[{ text: 'OK' }],
+				{ cancelable: false }
+			)
+		}
+	}
+
+	const CheckIfLocationEnabled = async () => {
+		let enabled = await Location.hasServicesEnabledAsync()
+		if (!enabled) {
+			Alert.alert(
+				'Servicio de ubicación no habilitado',
+				'Habilite sus servicios de ubicación para continuar',
+				[{ text: 'OK' }],
+				{ cancelable: false }
+			)
+		} else {
+			setLocationServiceEnabled(enabled)
+		}
+	}
+
+	const requestLocationPermission = async () => {
+		//valido si esta habilitado la opcion de GPS
+
+		if (Platform.OS !== 'android') {
+			Alert.alert(
+				'Vaya, esto no funcionará en un emulador de Android. Pruébelo en su dispositivo!'
+			)
+			return
+		}
+		let { status } = await Location.requestPermissionsAsync()
+		if (status !== 'granted') {
+			Alert.alert(
+				'Se denegó el permiso para acceder a la ubicación',
+				'Permita que la aplicación use el servicio de ubicación.',
+				[{ text: 'OK' }],
+				{ cancelable: false }
+			)
+			return
+		}
+		let { coords } = await Location.getCurrentPositionAsync({})
+
+		if (coords) {
+			const { latitude, longitude } = coords
+			let response = await Location.reverseGeocodeAsync({
+				latitude,
+				longitude,
+			})
+
+			for (let item of response) {
+				let address = `${item.name}, ${item.street}, ${item.postalCode}, ${item.city}`
+				setDisplayCurrentAddress(address)
+			}
+		}
+	}
+
 	const handleAddPedido = async (item) => {
 		//await deletePedidoApi()
 		setReloadCart(true)
 
-		const response = await appCreatePedidosProfit(item)
-
-		if (response.statusCode === 200) {
-			Alert.alert(response.mensaje)
-
-			const resultadoEmail = await enviarEmailAddPedido(item, response.pedido)
-
-			await deletePedidoApi(item.idPedido)
-
-			const pedidos = await getPedidosCartApi()
-
-			setPedidos(pedidos)
-			//navigation.navigate('account', { screen: 'orders' }) //del stack account vas a buscar la ventana orders asi es como se utiliza en busquedas entre menu anidado
+		/*=================================================== 
+				VALIDAR SI LA LICENCIA ESTA ACTIVA O NO :-D
+		=================================================== */
+		let fechaF = new Date(isLicencia.fecha_fin)
+		if (new Date() >= fechaF) {
+			await removeLicenceApi()
+			Alert.alert(
+				'No se genero el pedido',
+				'Su licencia esta vencida, contacte con el administrador ',
+				[{ text: 'OK' }],
+				{ cancelable: false }
+			)
 		} else {
-			Alert.alert('Error al realizar el pedido')
+			if (displayCurrentAddress !== '') {
+				const response = await appCreatePedidosProfit(
+					item,
+					displayCurrentAddress
+				)
+
+				if (response.statusCode === 200) {
+					Alert.alert(response.mensaje)
+
+					const resultadoEmail = await enviarEmailAddPedido(
+						item,
+						response.pedido
+					)
+
+					await deletePedidoApi(item.idPedido)
+
+					const pedidos = await getPedidosCartApi()
+
+					setPedidos(pedidos)
+					//navigation.navigate('account', { screen: 'orders' }) //del stack account vas a buscar la ventana orders asi es como se utiliza en busquedas entre menu anidado
+				} else {
+					Alert.alert('Error al crear el pedido')
+				}
+			} else {
+				Alert.alert(
+					'No se genero el pedido',
+					'Permita que la aplicación use el servicio de ubicación.',
+					[{ text: 'OK' }],
+					{ cancelable: false }
+				)
+				return
+			}
 		}
+
 		setReloadCart(false)
 	}
 

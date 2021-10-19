@@ -59,7 +59,7 @@ export async function getPedidosApiReport(co_user, dateStart, dateEnd) {
 	}
 }
 
-export async function appCreatePedidosProfit(item) {
+export async function appCreatePedidosProfit(item, address) {
 	const co_user = item.datoUser.id
 	const co_ven = item.datoUser.co_ven
 
@@ -81,6 +81,7 @@ export async function appCreatePedidosProfit(item) {
 				sucursal: SUCURSAL,
 				co_ven: co_ven,
 				co_alma: ALMACEN,
+				direc_ven: address,
 			}),
 		}
 		const response = await fetch(url, params)
