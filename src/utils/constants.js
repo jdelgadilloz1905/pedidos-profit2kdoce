@@ -1,6 +1,7 @@
 /** @format */
 
-export const API_URL = 'http://192.168.3.35:8080/apipedidosprofit2kdoce'
+//export const API_URL = 'http://192.168.3.35:8080/apipedidosprofit2kdoce'
+export const API_URL = 'http://localhost/apipedidosprofit2kdoce'
 //export const API_URL = 'http://192.168.0.106/apipedidosprofit'
 //export const API_URL = 'http://192.168.10.119:8080/apipedidosprofit'
 //export const API_URL = 'http://grupodh.dyndns.org:8080/apiPedidosProfit'
