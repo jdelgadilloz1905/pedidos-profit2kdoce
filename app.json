@@ -1,7 +1,7 @@
 {
 	"expo": {
-		"name": "Mis pedidos 2kDoce",
-		"slug": "MisPedidos2kdoce",
+		"name": "Pedidos Satvicos",
+		"slug": "PedidosSatvicos",
 		"version": "1.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
