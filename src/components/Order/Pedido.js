@@ -34,9 +34,9 @@ export default function Pedido(props) {
 	}
 
 	useEffect(() => {
+		validateLicencia()
 		CheckIfLocationEnabled()
 		requestLocationPermission()
-		validateLicencia()
 	}, [])
 
 	const validateLicencia = async () => {
@@ -46,8 +46,8 @@ export default function Pedido(props) {
 			setLicencia(JSON.parse(data))
 		} else {
 			Alert.alert(
-				'versión Demo',
-				'Para exportar los datos debe activar la licencia o contacte con el administrador',
+				'Versión Demo',
+				'Para exportar los datos debe activar la licencia, dirijase a ACERCA DE',
 				[{ text: 'OK' }],
 				{ cancelable: false }
 			)
@@ -141,7 +141,8 @@ export default function Pedido(props) {
 					setPedidos(pedidos)
 					//navigation.navigate('account', { screen: 'orders' }) //del stack account vas a buscar la ventana orders asi es como se utiliza en busquedas entre menu anidado
 				} else {
-					Alert.alert('Error al crear el pedido')
+					Alert.alert(response.mensaje)
+					//Alert.alert('Error al crear el pedido')
 				}
 			} else {
 				Alert.alert(
