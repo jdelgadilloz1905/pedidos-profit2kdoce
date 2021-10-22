@@ -24,8 +24,10 @@ export default function Account() {
 		useCallback(() => {
 			setUser(null)
 			;(async () => {
-				const response = await getTokenApi()
-				setUser(response)
+				getTokenApi().then((response) => {
+					setUser(response)
+				})
+				//const response = await getTokenApi()
 			})()
 			setReloadAccount(false)
 		}, [reloadAccount])

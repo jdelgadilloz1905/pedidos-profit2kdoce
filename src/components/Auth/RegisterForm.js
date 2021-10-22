@@ -22,7 +22,6 @@ export default function RegisterForm(props) {
 	useEffect(() => {
 		;(async () => {
 			const response = await getVendedorApi()
-
 			setVendedores(response.infoVen)
 		})()
 	}, [])
@@ -33,16 +32,24 @@ export default function RegisterForm(props) {
 		onSubmit: async (formData) => {
 			setLoading(true)
 			setUploading(true)
-			try {
-				response = await registerApi(formData, selectedCodVen)
 
-				Alert.alert(response.mensaje)
-				showLogin()
-			} catch (error) {
-				Alert.alert('Error al registrar el usuario ', JSON.stringify(error))
-
+			if (selectedCodVen !== null) {
+				registerApi(formData, selectedCodVen).then((response) => {
+					if (response.statusCode === 200) {
+						Alert.alert(response.mensaje)
+						showLogin()
+					} else {
+						Alert.alert(response.mensaje)
+						setLoading(false)
+						setUploading(false)
+					}
+				})
+			} else {
 				setLoading(false)
 				setUploading(false)
+				Alert.alert('Error', 'Debe seleccionar el vendedor', [{ text: 'OK' }], {
+					cancelable: false,
+				})
 			}
 		},
 	})

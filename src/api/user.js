@@ -196,6 +196,7 @@ export async function getVendedorApi(limit = 30) {
 			body: { limit: limit },
 		}
 		const response = await fetch(url, params)
+
 		const result = await response.json()
 
 		return result
