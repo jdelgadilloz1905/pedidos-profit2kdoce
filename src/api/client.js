@@ -70,12 +70,15 @@ export async function getClientApi(id) {
 	}
 }
 
-export async function getLastClientsApi(limit = 30) {
+export async function getLastClientsApi(auth) {
 	//primero valido si existe el localStorage
+	const co_ven = JSON.parse(auth.token).co_ven
+
 	try {
 		const clientes = await AsyncStorage.getItem(CLIENTES)
 
-		if (!clientes) {
+		if (clientes.length <= 2) {
+			//cantidad de caracteres
 			try {
 				const url = `${API_URL}/clients/all`
 				const params = {
@@ -84,10 +87,14 @@ export async function getLastClientsApi(limit = 30) {
 						Accept: 'application/json',
 						'Content-Type': 'application/json',
 					},
-					body: { limit: limit },
+					body: JSON.stringify({
+						co_ven: co_ven,
+					}),
 				}
 				const response = await fetch(url, params)
 				const result = await response.json()
+				console.log('retorno el resultado que es ', result)
+
 				await AsyncStorage.setItem(CLIENTES, JSON.stringify(result))
 				return result
 			} catch (error) {
@@ -179,7 +186,8 @@ export async function getObtenerCobrosCliente(item) {
 	}
 }
 
-export async function getAllClientesApi(limit = 30) {
+export async function getAllClientesApi(auth) {
+	const co_ven = JSON.parse(auth.token).co_ven
 	try {
 		const url = `${API_URL}/clients/all`
 		const params = {
@@ -188,7 +196,9 @@ export async function getAllClientesApi(limit = 30) {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: { limit: limit },
+			body: JSON.stringify({
+				co_ven: co_ven,
+			}),
 		}
 		const response = await fetch(url, params)
 		const result = await response.json()
@@ -228,7 +238,7 @@ export async function registerClientApi(
 	auth
 ) {
 	const co_ven = JSON.parse(auth.token).co_ven
-	
+
 	try {
 		const url = `${API_URL}/clients/client-register`
 		const params = {

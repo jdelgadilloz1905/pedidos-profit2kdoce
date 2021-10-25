@@ -32,10 +32,17 @@ export default function Documentos(props) {
 								<>
 									<View style={styles.btnsContainer}>
 										<Text>{`Nro Doc: ${item.nro_doc}`}</Text>
-										<Text>{`Fecha emisión: ${item.fec_emis}`}</Text>
+										<Text>{`Fecha emisión: ${item.fec_emis.substring(
+											0,
+											10
+										)}`}</Text>
 									</View>
 
 									<View style={styles.btnsContainer}>
+										<Text>{`Fecha ven.: ${item.fec_venc.substring(
+											0,
+											10
+										)}   `}</Text>
 										<Text>{`Total: ${item.total_neto} ${MONEDA}`}</Text>
 									</View>
 								</>

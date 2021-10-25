@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useCallback } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, RefreshControlComponent } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import { size } from 'lodash'
 import StatusBar from '../components/StatusBar'
@@ -22,6 +22,7 @@ export default function Favorites() {
 			setProducts(null)
 			;(async () => {
 				const response = await getFavoriteApi(JSON.parse(auth.token).id)
+
 				setProducts(response)
 			})()
 

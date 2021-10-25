@@ -34,6 +34,9 @@ export default function Documentos(props) {
 										<Text>{`Fecha emisión: ${item.fec_emis}`}</Text>
 										<Text>{`   Saldo: ${item.saldo} ${MONEDA}`}</Text>
 									</View>
+									<View style={styles.btnsContainer}>
+										<Text>{`Fecha vencimiento: ${item.fec_venc}`}</Text>
+									</View>
 								</>
 							}
 							left={(props) => <List.Icon {...props} icon='file-document' />}

@@ -12,17 +12,19 @@ import ScreenLoading from '../ScreenLoading'
 import colors from '../../styles/colors'
 
 import { getLastClientsApi, getAllClientesApi } from '../../api/client'
+import useAuth from '../../hooks/useAuth'
 
 export default function NewClients() {
 	const [clients, setClients] = useState(null)
 	const [reloadClients, setReloadClients] = useState(false)
 	const navigation = useNavigation()
+	const { auth } = useAuth()
 
 	useFocusEffect(
 		useCallback(() => {
 			setClients(null)
 			;(async () => {
-				const response = await getLastClientsApi(30)
+				const response = await getLastClientsApi(auth)
 
 				setClients(response)
 			})()
@@ -49,7 +51,7 @@ export default function NewClients() {
 
 	const handleUpdateClientes = async () => {
 		setClients(null)
-		const response = await getAllClientesApi(30)
+		const response = await getAllClientesApi(auth)
 
 		setClients(response)
 	}

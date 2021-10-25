@@ -103,6 +103,7 @@ export default function ListProduct(props) {
 
 		setReloadCart(false)
 	}
+
 	const renderItem = ({ item }) => (
 		<View style={[styles.containerHeader, { width: width }]}>
 			<View style={styles.item1}>
@@ -111,10 +112,17 @@ export default function ListProduct(props) {
 					onPress={() => goToProduct(item)}>
 					<View style={styles.containerProduct}>
 						<List.Item
-							title={`Código: ${item.co_art.trim()}`}
+							title={`Código: ${item.co_art.trim()}   Stock: ${
+								item.stock_actual !== '.00000' ? parseInt(item.stock_actual) : 0
+							}`}
 							description={
 								<>
-									<Text style={styles.title}>{`${item.art_des.trim()}`}</Text>
+									<View style={styles.btnsContainer}>
+										<Text style={styles.title}>{`${item.art_des.substring(
+											0,
+											45
+										)}`}</Text>
+									</View>
 								</>
 							}
 						/>
