@@ -23,7 +23,7 @@ export default function Favorites() {
 			;(async () => {
 				const response = await getFavoriteApi(JSON.parse(auth.token).id)
 
-				setProducts(response)
+				setProducts(response.infoProduct)
 			})()
 
 			setReloadFavorite(false)

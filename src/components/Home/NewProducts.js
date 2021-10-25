@@ -57,6 +57,7 @@ export default function NewProducts() {
 	const handleUpdateArticulos = async () => {
 		setProducts(null)
 		const response = await getAllProductsApi()
+
 		setProducts(response)
 	}
 
@@ -88,6 +89,7 @@ export default function NewProducts() {
 						Actualizar
 					</Button>
 					<Text>{`Encontrados: ${size(products)}`} </Text>
+
 					<ListProduct products={products} />
 				</View>
 			)}

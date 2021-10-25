@@ -94,12 +94,13 @@ export async function getLastProuctsApi() {
 
 				if (result.statusCode === 200) {
 					//almaceno la info en el localStorage
+					///valido con el perfil del usuario si muestro todos los productos o no
+					const newProductos = filter(result.infoProduct, (product) => {
+						return parseFloat(product.stock_actual) >= 1
+					})
 
-					await AsyncStorage.setItem(
-						ARTICULOS,
-						JSON.stringify(result.infoProduct)
-					)
-					return result.infoProduct
+					await AsyncStorage.setItem(ARTICULOS, JSON.stringify(newProductos))
+					return newProductos
 				} else {
 					console.log('Error al cargar los productos')
 				}
@@ -216,7 +217,7 @@ export async function getPrecioProducto() {
 				}
 				const response = await fetch(url, params)
 				const result = await response.json()
-				
+
 				if (result.statusCode === 200) {
 					//almaceno la info en el localStorage
 
@@ -255,27 +256,6 @@ export async function getAllProductsApi() {
 	const response = await getLastProuctsApi()
 
 	return response
-
-	/*try {
-		const url = `${API_URL}/products/all`
-		const params = {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: { limit: limit },
-		}
-		const response = await fetch(url, params)
-		const result = await response.json()
-
-		//almaceno la info en el localStorage
-		await AsyncStorage.setItem(ARTICULOS, JSON.stringify(result))
-		return result
-	} catch (error) {
-		console.log('error es : ' + error)
-		return null
-	}*/
 }
 
 /*=========================================
