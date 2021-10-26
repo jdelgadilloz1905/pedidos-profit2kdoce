@@ -73,11 +73,10 @@ export async function getClientApi(id) {
 export async function getLastClientsApi(auth) {
 	//primero valido si existe el localStorage
 	const co_ven = JSON.parse(auth.token).co_ven
-
 	try {
 		const clientes = await AsyncStorage.getItem(CLIENTES)
 
-		if (clientes.length <= 2) {
+		if (!clientes) {
 			//cantidad de caracteres
 			try {
 				const url = `${API_URL}/clients/all`

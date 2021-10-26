@@ -120,7 +120,7 @@ export default function ListProduct(props) {
 									<View style={styles.btnsContainer}>
 										<Text style={styles.title}>{`${item.art_des.substring(
 											0,
-											45
+											40
 										)}`}</Text>
 									</View>
 								</>
