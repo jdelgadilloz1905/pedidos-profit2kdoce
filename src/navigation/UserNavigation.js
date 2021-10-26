@@ -11,6 +11,7 @@ import ClientStack from './ClientStack'
 import FavoritesScreen from './FavoriteStack'
 import CartStack from './CartStack'
 import AccountStack from './AccountStack'
+import CuentaxCobrarScreen from './CuentaxCobrarStack'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -37,6 +38,13 @@ export default function UserNavigation() {
 					component={ProductStack}
 					options={{
 						title: 'Articulos',
+					}}
+				/>
+				<Tab.Screen
+					name='cxc'
+					component={CuentaxCobrarScreen}
+					options={{
+						title: 'CxC',
 					}}
 				/>
 				<Tab.Screen
@@ -76,6 +84,9 @@ function setIcon(route, routeStatus) {
 			break
 		case 'favorites':
 			iconName = 'heart'
+			break
+		case 'cxc':
+			iconName = 'money'
 			break
 		case 'cart':
 			iconName = 'shopping-cart'

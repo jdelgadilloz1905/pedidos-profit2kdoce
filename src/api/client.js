@@ -93,7 +93,6 @@ export async function getLastClientsApi(auth) {
 				}
 				const response = await fetch(url, params)
 				const result = await response.json()
-				console.log('retorno el resultado que es ', result)
 
 				await AsyncStorage.setItem(CLIENTES, JSON.stringify(result))
 				return result
@@ -128,6 +127,29 @@ export async function getCuentaxCobrar(item) {
 			},
 			body: JSON.stringify({
 				co_cli: item,
+			}),
+		}
+		const response = await fetch(url, params)
+		const result = await response.json()
+
+		return result
+	} catch (error) {
+		console.log(error)
+		return null
+	}
+}
+
+export async function getCuentaxCobrarVendedor(co_ven) {
+	try {
+		const url = `${API_URL}/clients/cxc-vendedor`
+		const params = {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json text/plain, */*',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				co_ven: co_ven,
 			}),
 		}
 		const response = await fetch(url, params)

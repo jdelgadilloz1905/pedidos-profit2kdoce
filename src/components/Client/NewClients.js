@@ -86,6 +86,7 @@ export default function NewClients() {
 						onPress={addUpdateClientes}>
 						Actualizar
 					</Button>
+
 					<Text>{`Encontrados: ${size(clients)}`} </Text>
 					<ListClient clients={clients} />
 				</View>

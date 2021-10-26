@@ -39,11 +39,11 @@ export default function Documentos(props) {
 									</View>
 
 									<View style={styles.btnsContainer}>
-										<Text>{`Fecha ven.: ${item.fec_venc.substring(
+										<Text>{`Fecha venc.: ${item.fec_venc.substring(
 											0,
 											10
 										)}   `}</Text>
-										<Text>{`Total: ${item.total_neto} ${MONEDA}`}</Text>
+										<Text>{`  Total: ${item.total_neto} ${MONEDA}`}</Text>
 									</View>
 								</>
 							}

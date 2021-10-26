@@ -1,8 +1,8 @@
 /** @format */
 
-export const API_URL = 'http://192.168.3.35:8080/apipedidosprofit2kdoce'
+//export const API_URL = 'http://192.168.3.35:8080/apipedidosprofit2kdoce'
 //export const API_URL = 'http://localhost/apipedidosprofit2kdoce'
-//export const API_URL = 'http://asatvicos.ddns.net:8080/apiPedidosProfit2kdoce'
+export const API_URL = 'http://asatvicos.ddns.net:8080/apiPedidosProfit2kdoce'
 export const API_URL_LICENCE = 'https://estudio57.net/apilicenciasweb/api'
 //export const API_URL = 'https://react-native-ecommerce-dev.herokuapp.com'
 
