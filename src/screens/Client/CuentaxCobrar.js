@@ -9,6 +9,7 @@ import { map } from 'lodash'
 
 import colors from '../../styles/colors'
 import { MONEDA } from '../../utils/constants'
+import { convertFormatDate } from '../../utils/functions'
 
 export default function Documentos(props) {
 	//realizo un useEffect para hacer la busque de las cuentas por cobrar del cliente
@@ -32,16 +33,14 @@ export default function Documentos(props) {
 								<>
 									<View style={styles.btnsContainer}>
 										<Text>{`Nro Doc: ${item.nro_doc}`}</Text>
-										<Text>{`Fecha emisión: ${item.fec_emis.substring(
-											0,
-											10
+										<Text>{`Fecha emisión: ${convertFormatDate(
+											item.fec_emis.substring(0, 10)
 										)}`}</Text>
 									</View>
 
 									<View style={styles.btnsContainer}>
-										<Text>{`Fecha venc.: ${item.fec_venc.substring(
-											0,
-											10
+										<Text>{`Fecha venc.: ${convertFormatDate(
+											item.fec_venc.substring(0, 10)
 										)}   `}</Text>
 										<Text>{`  Total: ${item.total_neto} ${MONEDA}`}</Text>
 									</View>

@@ -129,19 +129,22 @@ export default function DetailClient(props) {
 								<Paragraph>Teléfonos: {client.telefonos}</Paragraph>
 								<Paragraph>Tipo de Precio: {client.tipo_precio}</Paragraph>
 							</Card.Content>
-
-							<Card.Actions>
-								<View style={styles.btnsContainer}>
-									<Button
-										mode='contained'
-										contentStyle={styles.btnBuyContent}
-										labelStyle={styles.btnLabel}
-										style={styles.btn}
-										onPress={addClientCart}>
-										{isAddCart ? 'Añadir al pedido' : 'Cambiar cliente'}
-									</Button>
-								</View>
-							</Card.Actions>
+							{!isCobros ? (
+								<Card.Actions>
+									<View style={styles.btnsContainer}>
+										<Button
+											mode='contained'
+											contentStyle={styles.btnBuyContent}
+											labelStyle={styles.btnLabel}
+											style={styles.btn}
+											onPress={addClientCart}>
+											{isAddCart ? 'Añadir al pedido' : 'Cambiar cliente'}
+										</Button>
+									</View>
+								</Card.Actions>
+							) : (
+								<></>
+							)}
 						</Card>
 						{infoClienteAdmin()}
 					</ScrollView>

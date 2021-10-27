@@ -24,7 +24,7 @@ export default function Documentos() {
 				const response = await getCuentaxCobrarVendedor(
 					JSON.parse(auth.token).co_ven
 				)
-				console.log(response.infoDocumentos)
+
 				setClients(response.infoDocumentos)
 			})()
 
