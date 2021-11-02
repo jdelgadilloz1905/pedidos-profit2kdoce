@@ -6,6 +6,8 @@ import {
 	ALMACEN,
 	PEDIDOS,
 	API_URL_LICENCE,
+	DB,
+	EMAIL,
 } from '../utils/constants'
 import { filter } from 'lodash'
 
@@ -117,6 +119,8 @@ export async function enviarEmailAddPedido(item, pedido) {
 				sucursal: SUCURSAL,
 				co_ven: co_ven,
 				co_alma: ALMACEN,
+				db: DB,
+				email: EMAIL,
 			}),
 		}
 		const response = await fetch(url, params)
