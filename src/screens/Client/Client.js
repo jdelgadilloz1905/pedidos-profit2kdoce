@@ -12,9 +12,9 @@ export default function Client() {
 		<>
 			<StatusBar backgroundColor={colors.bgBlue} barStyle='light-content' />
 			<SearchClient />
-			{/*<ScrollView>
+			{/* <ScrollView>
 				<NewClients />
-			</ScrollView>*/}
+			</ScrollView> */}
 			<NewClients />
 		</>
 	)

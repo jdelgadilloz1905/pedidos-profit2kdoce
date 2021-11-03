@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useCallback } from 'react'
-import { StyleSheet, View, Text, Alert } from 'react-native'
+import { StyleSheet, View, Text, Alert, ScrollView, LogBox } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import { size } from 'lodash'
@@ -25,6 +25,7 @@ export default function NewProducts() {
 
 	useFocusEffect(
 		useCallback(() => {
+			LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
 			setProducts(null)
 			;(async () => {
 				const responseProduct = await getLastProuctsApi()
@@ -61,6 +62,20 @@ export default function NewProducts() {
 		setProducts(response)
 	}
 
+	const handleButton = () => {
+		return (
+			<Button
+				mode='contained'
+				contentStyle={styles.btnBuyContent}
+				labelStyle={styles.btnLabel}
+				style={styles.btn}
+				loading={reloadProducts}
+				onPress={addUpdateArticulos}>
+				Actualizar
+			</Button>
+		)
+	}
+
 	return (
 		<>
 			<StatusBar backgroundColor={colors.bgBlue} barStyle='light-content' />
@@ -71,27 +86,22 @@ export default function NewProducts() {
 				<View style={styles.container}>
 					<Text style={styles.title}>Lista de Productos</Text>
 					<Text>No se encontraron registros</Text>
+					{handleButton()}
 				</View>
 			) : (
-				<View style={styles.container}>
-					<View style={styles.row}>
-						<View style={[styles.box, styles.two]}>
-							<Text style={styles.title}>Lista de Productos</Text>
+				<ScrollView style={{ flex: 1 }}>
+					<View style={styles.container}>
+						<View style={styles.row}>
+							<View style={[styles.box, styles.two]}>
+								<Text style={styles.title}>Lista de Productos</Text>
+							</View>
 						</View>
-					</View>
-					<Button
-						mode='contained'
-						contentStyle={styles.btnBuyContent}
-						labelStyle={styles.btnLabel}
-						style={styles.btn}
-						loading={reloadProducts}
-						onPress={addUpdateArticulos}>
-						Actualizar
-					</Button>
-					<Text>{`Encontrados: ${size(products)}`} </Text>
+						{handleButton()}
+						<Text>{`Encontrados: ${size(products)}`} </Text>
 
-					<ListProduct products={products} />
-				</View>
+						<ListProduct products={products} />
+					</View>
+				</ScrollView>
 			)}
 		</>
 	)

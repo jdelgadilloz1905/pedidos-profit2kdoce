@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useCallback } from 'react'
-import { StyleSheet, View, Text, Alert } from 'react-native'
+import { StyleSheet, View, Text, Alert, ScrollView, LogBox } from 'react-native'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { size } from 'lodash'
 import { Button, FAB, Portal, Provider } from 'react-native-paper'
@@ -22,6 +22,7 @@ export default function NewClients() {
 
 	useFocusEffect(
 		useCallback(() => {
+			LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
 			setClients(null)
 			;(async () => {
 				const response = await getLastClientsApi(auth)
@@ -59,6 +60,20 @@ export default function NewClients() {
 		navigation.push('create-client')
 	}
 
+	const handleButton = () => {
+		return (
+			<Button
+				mode='contained'
+				contentStyle={styles.btnBuyContent}
+				labelStyle={styles.btnLabel}
+				style={styles.btn}
+				loading={reloadClients}
+				onPress={addUpdateClientes}>
+				Actualizar
+			</Button>
+		)
+	}
+
 	return (
 		<>
 			<StatusBar backgroundColor={colors.bgBlue} barStyle='light-content' />
@@ -69,27 +84,22 @@ export default function NewClients() {
 				<View style={styles.container}>
 					<Text style={styles.title}>Lista de Clientes</Text>
 					<Text>No se encontraron registros</Text>
+					{handleButton()}
 				</View>
 			) : (
-				<View style={styles.container}>
-					<View style={styles.row}>
-						<View style={[styles.box, styles.two]}>
-							<Text style={styles.title}>Lista de Clientes</Text>
+				<ScrollView>
+					<View style={styles.container}>
+						<View style={styles.row}>
+							<View style={[styles.box, styles.two]}>
+								<Text style={styles.title}>Lista de Clientes</Text>
+							</View>
 						</View>
-					</View>
-					<Button
-						mode='contained'
-						contentStyle={styles.btnBuyContent}
-						labelStyle={styles.btnLabel}
-						style={styles.btn}
-						loading={reloadClients}
-						onPress={addUpdateClientes}>
-						Actualizar
-					</Button>
+						{handleButton()}
 
-					<Text>{`Encontrados: ${size(clients)}`} </Text>
-					<ListClient clients={clients} />
-				</View>
+						<Text>{`Encontrados: ${size(clients)}`} </Text>
+						<ListClient clients={clients} />
+					</View>
+				</ScrollView>
 			)}
 			<Provider>
 				<Portal>

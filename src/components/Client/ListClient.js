@@ -41,13 +41,11 @@ export default function ListClient(props) {
 		</TouchableWithoutFeedback>
 	)
 	return (
-		<SafeAreaView style={styles.container}>
-			<FlatList
-				data={clients}
-				renderItem={renderItem}
-				keyExtractor={(item) => item.co_cli}
-			/>
-		</SafeAreaView>
+		<FlatList
+			data={clients}
+			renderItem={renderItem}
+			keyExtractor={(item) => item.co_cli}
+		/>
 	)
 }
 
