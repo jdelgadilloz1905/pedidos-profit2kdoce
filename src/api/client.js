@@ -259,7 +259,6 @@ export async function registerClientApi(
 	auth
 ) {
 	const co_ven = JSON.parse(auth.token).co_ven
-
 	try {
 		const url = `${API_URL}/clients/client-register`
 		const params = {

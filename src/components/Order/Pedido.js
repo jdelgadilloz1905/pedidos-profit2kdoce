@@ -23,8 +23,7 @@ import { MONEDA } from '../../utils/constants'
 export default function Pedido(props) {
 	const { pedido, setReloadCart, setPedidos, getPedidosCartApi } = props
 
-	const [displayCurrentAddress, setDisplayCurrentAddress] =
-		useState('Santa paul men ')
+	const [displayCurrentAddress, setDisplayCurrentAddress] = useState('')
 	const [locationServiceEnabled, setLocationServiceEnabled] = useState(false)
 	const [isLicencia, setLicencia] = useState(null)
 
