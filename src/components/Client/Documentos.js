@@ -12,7 +12,7 @@ import { MONEDA } from '../../utils/constants'
 
 export default function Documentos(props) {
 	//realizo un useEffect para hacer la busque de las cuentas por cobrar del cliente
-	const { datos, title } = props
+	const { datos, title, tipo } = props
 
 	return (
 		<>
@@ -27,15 +27,16 @@ export default function Documentos(props) {
 					{map(datos, (item) => (
 						<List.Item
 							key={item.doc_num}
-							title={`Nro Doc: ${item.doc_num}`}
+							title={`Tipo: ${tipo}`}
 							description={
 								<>
 									<View style={styles.btnsContainer}>
+										<Text>{`Nro Doc: ${item.doc_num}`}</Text>
 										<Text>{`Fecha emisión: ${item.fec_emis}`}</Text>
-										<Text>{`   Saldo: ${item.saldo} ${MONEDA}`}</Text>
 									</View>
 									<View style={styles.btnsContainer}>
-										<Text>{`Fecha vencimiento: ${item.fec_venc}`}</Text>
+										<Text>{`Fecha venc.: ${item.fec_venc}`}</Text>
+										<Text>{`   Saldo: ${item.saldo} ${MONEDA}`}</Text>
 									</View>
 								</>
 							}

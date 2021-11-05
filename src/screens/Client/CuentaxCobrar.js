@@ -42,7 +42,7 @@ export default function Documentos(props) {
 										<Text>{`Fecha venc.: ${convertFormatDate(
 											item.fec_venc.substring(0, 10)
 										)}   `}</Text>
-										<Text>{`  Total: ${item.total_neto} ${MONEDA}`}</Text>
+										<Text>{`  Saldo: ${item.total_neto} ${MONEDA}`}</Text>
 									</View>
 								</>
 							}

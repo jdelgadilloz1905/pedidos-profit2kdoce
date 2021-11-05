@@ -49,7 +49,6 @@ export default function DetailClient(props) {
 				}
 
 				const responseCxC = await getCuentaxCobrar(client.co_cli)
-
 				if (responseCxC.statusCode === 200)
 					setCuentaXcobrar(responseCxC.infoFacturaPendiente)
 
@@ -85,6 +84,7 @@ export default function DetailClient(props) {
 					<Documentos
 						datos={cuentaXcobrar}
 						title={'No tiene Factura pendiente'}
+						tipo={'FACT'}
 					/>
 				</List.Accordion>
 
@@ -94,12 +94,13 @@ export default function DetailClient(props) {
 					<Documentos
 						datos={isNotaEntrega}
 						title={'No tiene Notas de Entrega'}
+						tipo={'NE'}
 					/>
 				</List.Accordion>
 				<List.Accordion
 					title='Cobros'
 					left={(props) => <List.Icon {...props} icon='folder' />}>
-					<Cobros datos={isCobros} title={'Cobros'} />
+					<Cobros datos={isCobros} title={'No tiene Cobros pendiente'} />
 				</List.Accordion>
 			</List.Section>
 		)
