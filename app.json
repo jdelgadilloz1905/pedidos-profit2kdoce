@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "Satvicos",
 		"slug": "Pedidossatvicos",
-		"version": "1.5",
+		"version": "1.6",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
 		"splash": {
