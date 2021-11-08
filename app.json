@@ -1,7 +1,7 @@
 {
 	"expo": {
-		"name": "Satvicos",
-		"slug": "Pedidossatvicos",
+		"name": "Michacha",
+		"slug": "Pedidosmichacha",
 		"version": "1.6",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
@@ -18,7 +18,7 @@
 			"supportsTablet": true
 		},
 		"android": {
-			"package": "com.pedidos_profit_2kdoceSatvicos.omendj",
+			"package": "com.pedidos_profit_2kdoceMichacha.omendj",
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#FFFFFF"
