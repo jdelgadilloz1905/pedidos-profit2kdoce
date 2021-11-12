@@ -25,6 +25,7 @@ export default function DetailClient(props) {
 	const [cuentaXcobrar, setCuentaXcobrar] = useState(null)
 	const [isNotaEntrega, setNotaEntrega] = useState(null)
 	const [isCobros, setCobros] = useState(null)
+	const [isActiveButton, setActiveButton] = useState(null)
 
 	const handlePress = () => setExpanded(!expanded)
 
@@ -57,8 +58,9 @@ export default function DetailClient(props) {
 					setNotaEntrega(responseNE.infoNotaEntrega)
 
 				const responseCobros = await getObtenerCobrosCliente(client.co_cli)
-				if (responseCobros.statusCode === 200)
+				if (responseCobros.statusCode === 200) {
 					setCobros(responseCobros.infoCobros)
+				}
 			})()
 
 			setReloadClients(false)
@@ -129,8 +131,9 @@ export default function DetailClient(props) {
 								<Paragraph>Dirección: {client.direc1}</Paragraph>
 								<Paragraph>Teléfonos: {client.telefonos}</Paragraph>
 								<Paragraph>Tipo de Precio: {client.tipo_precio}</Paragraph>
+								<Paragraph>Cond. pago: {client.cond_des}</Paragraph>
 							</Card.Content>
-							{!isCobros ? (
+							{!cuentaXcobrar ? (
 								<Card.Actions>
 									<View style={styles.btnsContainer}>
 										<Button

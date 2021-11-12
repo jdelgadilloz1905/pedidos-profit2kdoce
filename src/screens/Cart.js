@@ -63,7 +63,10 @@ export default function Cart() {
 
 	const loadClient = async () => {
 		const response = await getClientCartApi()
+
 		setClient(response)
+
+		setCondicio(response.cond_pag)
 	}
 	const loadPedido = async () => {
 		const listTrans = await getTransporteCartApi()
@@ -89,7 +92,7 @@ export default function Cart() {
 				<>
 					<Client client={client} />
 					<View style={{ padding: 10 }}>
-						<DropDownPicker
+						{/* <DropDownPicker
 							items={selectFormaPago}
 							placeholder='Forma de pago'
 							containerStyle={{ height: 40, marginBottom: 10 }}
@@ -100,7 +103,7 @@ export default function Cart() {
 							dropDownStyle={{ backgroundColor: '#fafafa' }}
 							labelStyle={styles.labelStyle}
 							onChangeItem={(item) => setCondicio(item.value)}
-						/>
+						/> */}
 
 						<DropDownPicker
 							items={selectCodtran}

@@ -15,6 +15,7 @@ export default function ClientCart(props) {
 			<Text style={styles.label}>{props.client.cli_des}</Text>
 			<Text style={styles.label}>{`Telefonos: ${props.client.telefonos}`}</Text>
 			<Text style={styles.label}>{`Tipo: ${props.client.tipo_precio}`}</Text>
+			<Text style={styles.label}>{`Cond. pago: ${props.client.cond_des}`}</Text>
 		</View>
 	)
 }
