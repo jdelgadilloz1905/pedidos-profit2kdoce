@@ -66,7 +66,7 @@ export default function Cart() {
 
 		setClient(response)
 
-		setCondicio(response.cond_pag)
+		setCondicio(response === null ? '' : response.cond_pag)
 	}
 	const loadPedido = async () => {
 		const listTrans = await getTransporteCartApi()
