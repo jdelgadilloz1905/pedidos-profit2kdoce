@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useCallback } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import { size } from 'lodash'
 import StatusBar from '../components/StatusBar'
@@ -45,20 +45,22 @@ export default function Documentos() {
 					<Text>No hay CxC pendiente</Text>
 				</View>
 			) : (
-				<View style={styles.container}>
-					<View style={styles.row}>
-						<View style={[styles.box, styles.two]}>
-							<Text style={styles.title}>Lista de Clientes</Text>
+				<ScrollView>
+					<View style={styles.container}>
+						<View style={styles.row}>
+							<View style={[styles.box, styles.two]}>
+								<Text style={styles.title}>Lista de Clientes</Text>
+							</View>
 						</View>
-					</View>
 
-					<Text>{`Encontrados: ${size(clients)}`} </Text>
-					<ListClient
-						clients={clients}
-						auth={auth}
-						setReloadCxC={setReloadCxC}
-					/>
-				</View>
+						<Text>{`Encontrados: ${size(clients)}`} </Text>
+						<ListClient
+							clients={clients}
+							auth={auth}
+							setReloadCxC={setReloadCxC}
+						/>
+					</View>
+				</ScrollView>
 			)}
 		</>
 	)

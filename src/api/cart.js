@@ -43,7 +43,8 @@ export async function addProductCartApi(
 	art_des,
 	quantity,
 	price,
-	stock_act = 0
+	stock_act = 0,
+	descuento = '0.00'
 ) {
 	try {
 		const cart = await getProductCartApi()
@@ -55,6 +56,7 @@ export async function addProductCartApi(
 				quantity,
 				price,
 				stock_act,
+				descuento,
 			})
 		} else {
 			let found = false
@@ -78,6 +80,7 @@ export async function addProductCartApi(
 					quantity,
 					price,
 					stock_act,
+					descuento,
 				})
 			}
 		}
@@ -166,6 +169,24 @@ export async function updateProductCartApi(co_art, quantity) {
 			}
 		})
 
+		await AsyncStorage.setItem(CART, JSON.stringify(cart))
+		return true
+	} catch (e) {
+		return null
+	}
+}
+export async function updateProductCartDescuentoApi(co_art, descuento) {
+	try {
+		const cart = await getProductCartApi()
+		//console.log('mis productos del carrito ', cart)
+		map(cart, (product) => {
+			if (product.co_art === co_art) {
+				return (product.descuento = descuento)
+				// if (parseFloat(descuento) > 0) {
+				// 	return (product.descuento = descuento)
+				// }
+			}
+		})
 		await AsyncStorage.setItem(CART, JSON.stringify(cart))
 		return true
 	} catch (e) {

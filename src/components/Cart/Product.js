@@ -9,6 +9,7 @@ import {
 	decreaseProductCartApi,
 	increaseProductCartApi,
 	updateProductCartApi,
+	updateProductCartDescuentoApi,
 } from '../../api/cart'
 import Quantity from '../../components/Product/Quantity'
 import colors from '../../styles/colors'
@@ -18,7 +19,9 @@ export default function Product(props) {
 	const { product, setReloadCart } = props
 
 	const [quantity, setQuantity] = useState(product.quantity.toString())
-	const [isShowMessage, setIsShowMessage] = useState(false) //verifico si el true lo agrego al carrito
+	const [isMessage, setIsMessage] = useState('') //verifico si el true lo agrego al carrito
+	const [isDecuento, setIsDescuento] = useState('0.00')
+	const [isShowMessage, setIsShowMessage] = useState(false)
 
 	const calcPrice = (price, discount) => {
 		if (!discount) return parseFloat(price).toFixed(2)
@@ -41,6 +44,19 @@ export default function Product(props) {
 		if (response) setReloadCart(true)
 	}
 
+	const updateProductCartDescuento = async (text) => {
+		if (/^[0-9]*[.]?[0-9]*$/.test(text.toString())) {
+			setIsDescuento(text)
+			const response = await updateProductCartDescuentoApi(product.co_art, text)
+
+			if (response) setReloadCart(true)
+			setIsDescuento(text)
+		} else {
+			isShowMessage(true)
+
+			setIsMessage('Error, verifique el número que esta ingresando')
+		}
+	}
 	const updateProductCart = async (item) => {
 		const response = await updateProductCartApi(product.co_art, item)
 		if (response) setReloadCart(true)
@@ -98,6 +114,15 @@ export default function Product(props) {
 							onPress={decreaseProductCart}
 						/>
 					</View>
+
+					<TextInput
+						label='Descuento'
+						value={isDecuento}
+						keyboardType={'numeric'}
+						style={styles.inputQuantity2}
+						onChangeText={(text) => updateProductCartDescuento(text)}
+					/>
+					{isShowMessage && <Text style={styles.label}>{isMessage}</Text>}
 					<Button color='#b12704' icon='delete' onPress={deleteProductCart} />
 				</View>
 
@@ -107,16 +132,18 @@ export default function Product(props) {
 							<Text style={styles.currentPrice}>
 								{`Precio: ${calcPrice(
 									product.price,
-									(product.discount = 0)
+									parseFloat(product.descuento)
 								)} ${MONEDA}`}
 							</Text>
 						</View>
-
+						<View style={[styles.box, styles.two]}>
+							<Text style={styles.currentPrice}>% Descuento</Text>
+						</View>
 						<View>
 							<Text style={styles.currentPrice}>
 								{`Total: ${calcPrice(
 									product.price * product.quantity,
-									(product.discount = 0)
+									parseFloat(product.descuento)
 								)} ${MONEDA}`}
 							</Text>
 						</View>
@@ -181,6 +208,11 @@ const styles = StyleSheet.create({
 	inputQuantity: {
 		paddingHorizontal: 10,
 		fontSize: 16,
+	},
+	inputQuantity2: {
+		paddingHorizontal: 10,
+		fontSize: 16,
+		marginRight: 20,
 	},
 	container: {
 		flex: 1,

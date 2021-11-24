@@ -33,7 +33,14 @@ export default function ProductList(props) {
 			const responseCar = {}
 			let totalPaymentTemp = 0
 			for await (const product of cart) {
-				totalPaymentTemp += product.price * product.quantity
+				if (product.descuento === '') {
+					totalPaymentTemp += product.price * product.quantity
+				} else {
+					totalPaymentTemp +=
+						(product.price -
+							(product.price * parseFloat(product.descuento)) / 100) *
+						product.quantity
+				}
 
 				// responseCar.quantity = product.quantity
 				// responseCar.price = product.price

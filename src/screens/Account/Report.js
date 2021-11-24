@@ -29,16 +29,9 @@ export default function Record() {
 	const [dateStart, setDateStart] = useState(new Date())
 	const [dateEnd, setDateEnd] = useState(new Date())
 	const [loading, setLoading] = useState(false)
-	// useEffect(() => {
-	// 	return () => {
-	// 		''
-	// 	}
-	// }, [])
-	LogBox.ignoreAllLogs()
-	/*		//const fechaIni = `${dateStart.getFullYear}-${dateStart.getDate}-${dateStart.getMonth}`
-		//const fechaFin = `${dateEnd.getFullYear}-${dateEnd.getDate}-${dateEnd.getMonth}`
 
-		//console.log('datos a enviar ', co_user, fechaIni, fechaFin)*/
+	LogBox.ignoreAllLogs()
+
 	const handleSubmit = async () => {
 		setLoading(true)
 
@@ -62,7 +55,6 @@ export default function Record() {
 			<StatusBar backgroundColor={colors.bgBlue} barStyle='light-content' />
 
 			<Card>
-				<Card.Title />
 				<Card.Content>
 					<Paragraph>
 						<View style={styles.btnsContainer}>
@@ -147,7 +139,7 @@ const styles = StyleSheet.create({
 		padding: 20,
 	},
 	datePickerStyle: {
-		width: 150,
+		width: 200,
 		marginTop: 20,
 	},
 	btnsContainer: {
