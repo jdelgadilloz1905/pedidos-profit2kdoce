@@ -1,8 +1,8 @@
 {
 	"expo": {
-		"name": "Benfica",
-		"slug": "Pedidosbenfica",
-		"version": "1.7",
+		"name": "Satvicos",
+		"slug": "PedidosSatvicos",
+		"version": "2.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
 		"splash": {
@@ -18,7 +18,7 @@
 			"supportsTablet": true
 		},
 		"android": {
-			"package": "com.pedidos_profit_2kdoceBenfica.omendj",
+			"package": "com.pedidos_profit_2kdoceSatvicos.omendj",
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#FFFFFF"

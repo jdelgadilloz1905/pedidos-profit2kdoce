@@ -256,9 +256,17 @@ export async function registerClientApi(
 	condicion,
 	tipo,
 	segmento,
-	auth
+	auth,
+	checkLunes,
+	checkMartes,
+	checkMiercoles,
+	checkJueves,
+	checkViernes,
+	checkSabado,
+	checkDomingo
 ) {
 	const co_ven = JSON.parse(auth.token).co_ven
+
 	try {
 		const url = `${API_URL}/clients/client-register`
 		const params = {
@@ -270,14 +278,25 @@ export async function registerClientApi(
 				nombre: formData.nombre,
 				rif: formData.rif,
 				direccion: formData.direccion,
+				direccionEntrega: formData.direccionEntrega,
 				email: formData.email,
 				telefono: formData.telefono,
 				responsable: formData.responsable,
+				ciudad: formData.ciudad,
+				comentario: formData.comentario,
 				tipo: tipo,
 				condicion: condicion,
 				segmento: segmento,
 				co_ven: co_ven,
 				sucursal: SUCURSAL,
+				lunes: checkLunes,
+				martes: checkMartes,
+				miercoles: checkMiercoles,
+				jueves: checkJueves,
+				viernes: checkViernes,
+				sabado: checkSabado,
+				domingo: checkDomingo,
+				s,
 			}),
 		}
 		const response = await fetch(url, params)

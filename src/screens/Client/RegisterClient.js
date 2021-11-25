@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Alert, StyleSheet, ActivityIndicator, Text } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
-import { TextInput, Button } from 'react-native-paper'
+import { TextInput, Button, Checkbox } from 'react-native-paper'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -25,7 +25,16 @@ export default function RegisterClient() {
 	const [isSelectTipo, setSelectTipo] = useState(null)
 
 	const [isSegmento, setSegemento] = useState([])
-	const [isSelectSegmento, setSelectSegmento] = useState(null)
+	const [isSelectSegmento, setSelectSegmento] = useState('0001')
+
+	/*DIAS DE VISITA */
+	const [isCheckLunes, setIsCheckLunes] = useState(false)
+	const [isCheckMartes, setIsCheckMartes] = useState(false)
+	const [isCheckMiercoles, setIsCheckMiercoles] = useState(false)
+	const [isCheckJueves, setIsCheckJueves] = useState(false)
+	const [isCheckViernes, setIsCheckViernes] = useState(false)
+	const [isCheckSabado, setIsCheckSabado] = useState(false)
+	const [isCheckDomingo, setIsCheckDomingo] = useState(false)
 
 	useEffect(() => {
 		;(async () => {
@@ -33,7 +42,7 @@ export default function RegisterClient() {
 			if (response.statusCode === 200) {
 				setTipo(response.infoTipo)
 				setCondiciones(response.infoCondiciones)
-				setSegemento(response.infoSegmento)
+				//setSegemento(response.infoSegmento)
 			}
 		})()
 	}, [])
@@ -45,13 +54,19 @@ export default function RegisterClient() {
 			setLoading(true)
 			setUploading(true)
 			try {
-				
 				response = await registerClientApi(
 					formData,
 					isSelectCondicio,
 					isSelectTipo,
 					isSelectSegmento,
-					auth
+					auth,
+					isCheckLunes,
+					isCheckMartes,
+					isCheckMiercoles,
+					isCheckJueves,
+					isCheckViernes,
+					isCheckSabado,
+					isCheckDomingo
 				)
 
 				if (response.statusCode === 200) Alert.alert(response.mensaje)
@@ -62,6 +77,69 @@ export default function RegisterClient() {
 			setUploading(false)
 		},
 	})
+
+	const visitDayClientCheck = () => {
+		return (
+			<>
+				<View style={styles.containerCheck}>
+					<Text>Visitas</Text>
+				</View>
+				<View style={styles.checkboxContainer}>
+					<Text style={styles.label}>Lunes</Text>
+					<Checkbox
+						status={isCheckLunes ? 'checked' : 'unchecked'}
+						onPress={() => {
+							setIsCheckLunes(!isCheckLunes)
+						}}
+					/>
+					<Text style={styles.label}>Martes</Text>
+					<Checkbox
+						status={isCheckMartes ? 'checked' : 'unchecked'}
+						onPress={() => {
+							setIsCheckMartes(!isCheckMartes)
+						}}
+					/>
+					<Text style={styles.label}>Miercoles</Text>
+					<Checkbox
+						status={isCheckMiercoles ? 'checked' : 'unchecked'}
+						onPress={() => {
+							setIsCheckMiercoles(!isCheckMiercoles)
+						}}
+					/>
+					<Text style={styles.label}>Jueves</Text>
+					<Checkbox
+						status={isCheckJueves ? 'checked' : 'unchecked'}
+						onPress={() => {
+							setIsCheckJueves(!isCheckJueves)
+						}}
+					/>
+				</View>
+				<View style={styles.checkboxContainer}>
+					<Text style={styles.label}>Viernes</Text>
+					<Checkbox
+						status={isCheckViernes ? 'checked' : 'unchecked'}
+						onPress={() => {
+							setIsCheckViernes(!isCheckViernes)
+						}}
+					/>
+					<Text style={styles.label}>Sabado</Text>
+					<Checkbox
+						status={isCheckSabado ? 'checked' : 'unchecked'}
+						onPress={() => {
+							setIsCheckSabado(!isCheckSabado)
+						}}
+					/>
+					<Text style={styles.label}>Domingo</Text>
+					<Checkbox
+						status={isCheckDomingo ? 'checked' : 'unchecked'}
+						onPress={() => {
+							setIsCheckDomingo(!isCheckDomingo)
+						}}
+					/>
+				</View>
+			</>
+		)
+	}
 
 	const maybeRenderUploadingOverlay = () => {
 		if (uploading) {
@@ -105,7 +183,7 @@ export default function RegisterClient() {
 						labelStyle={styles.labelStyle}
 						onChangeItem={(item) => setSelectCondicio(item.value)}
 					/>
-					<DropDownPicker
+					{/* <DropDownPicker
 						items={isSegmento}
 						placeholder='Segmento'
 						containerStyle={{ height: 60, marginBottom: 20 }}
@@ -116,7 +194,7 @@ export default function RegisterClient() {
 						dropDownStyle={{ backgroundColor: '#fafafa' }}
 						labelStyle={styles.labelStyle}
 						onChangeItem={(item) => setSelectSegmento(item.value)}
-					/>
+					/> */}
 				</>
 			)
 		}
@@ -136,7 +214,16 @@ export default function RegisterClient() {
 					error={formik.errors.nombre}
 					autoCapitalize='none'
 				/>
+				<TextInput
+					label='Ciudad'
+					style={formStyle.input}
+					onChangeText={(text) => formik.setFieldValue('ciudad', text)}
+					value={formik.values.ciudad}
+					error={formik.errors.ciudad}
+					autoCapitalize='none'
+				/>
 				{maybeRenderUploadingOverlay()}
+				{visitDayClientCheck()}
 				<TextInput
 					label='Rif'
 					style={formStyle.input}
@@ -151,6 +238,16 @@ export default function RegisterClient() {
 					onChangeText={(text) => formik.setFieldValue('direccion', text)}
 					value={formik.values.direccion}
 					error={formik.errors.direccion}
+					autoCapitalize='none'
+				/>
+				<TextInput
+					label='Dirección Entrega'
+					style={formStyle.input}
+					onChangeText={(text) =>
+						formik.setFieldValue('direccionEntrega', text)
+					}
+					value={formik.values.direccionEntrega}
+					error={formik.errors.direccionEntrega}
 					autoCapitalize='none'
 				/>
 
@@ -179,6 +276,14 @@ export default function RegisterClient() {
 					error={formik.errors.responsable}
 					autoCapitalize='none'
 				/>
+				<TextInput
+					label='Comentario'
+					style={formStyle.input}
+					onChangeText={(text) => formik.setFieldValue('comentario', text)}
+					value={formik.values.comentario}
+					error={formik.errors.comentario}
+					autoCapitalize='none'
+				/>
 
 				<Button
 					mode='contained'
@@ -195,22 +300,28 @@ export default function RegisterClient() {
 function initialValues() {
 	return {
 		nombre: '',
+		ciudad: '',
 		rif: '',
 		direccion: '',
+		direccionEntrega: '',
 		telefono: '',
 		email: '',
 		responsable: '',
+		comentario: '',
 	}
 }
 
 function validationSchema() {
 	return {
 		nombre: Yup.string().required(true),
+		ciudad: Yup.string().required(true),
 		rif: Yup.string().required(true),
 		direccion: Yup.string().required(true),
+		direccionEntrega: Yup.string().required(true),
 		telefono: Yup.string().required(true),
 		email: Yup.string().email().required(true),
 		responsable: Yup.string().required(true),
+		comentario: Yup.string().required(true),
 	}
 }
 const styles = StyleSheet.create({
@@ -243,6 +354,18 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	containerAuth: {
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	checkboxContainer: {
+		flexDirection: 'row',
+		marginBottom: 20,
+	},
+	label: {
+		margin: 8,
+	},
+	containerCheck: {
+		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},

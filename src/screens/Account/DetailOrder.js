@@ -28,9 +28,20 @@ export default function DetailOrder(props) {
 								<Text style={styles.currentPrice}>{`Cantidad: ${parseFloat(
 									item.total_art
 								).toFixed(2)} `}</Text>
-								<Text style={styles.currentPrice}>{`Total: ${parseFloat(
-									item.total_art * parseFloat(item.prec_vta).toFixed(2)
-								).toFixed(2)} ${MONEDA}`}</Text>
+								<Text style={styles.currentPrice}>{`Descuento: ${parseFloat(
+									item.descuento
+								).toFixed(2)} %`}</Text>
+								<Text style={styles.currentPrice}>{`Total: ${
+									item.descuento === ''
+										? parseFloat(
+												item.total_art * parseFloat(item.prec_vta).toFixed(2)
+										  ).toFixed(2)
+										: (parseFloat(item.prec_vta).toFixed(2) -
+												(parseFloat(item.prec_vta).toFixed(2) *
+													parseFloat(item.descuento).toFixed(2)) /
+													100) *
+										  item.total_art
+								} ${MONEDA}`}</Text>
 							</View>
 						</View>
 					</View>

@@ -25,9 +25,21 @@ export default function DetailPedido(props) {
 									style={
 										styles.currentPrice
 									}>{`Cantidad: ${item.quantity} `}</Text>
-								<Text style={styles.currentPrice}>{`Total: ${parseFloat(
-									item.quantity * parseFloat(item.price).toFixed(2)
-								).toFixed(2)} `}</Text>
+								<Text
+									style={
+										styles.currentPrice
+									}>{`Descuento: ${item.descuento} %`}</Text>
+								<Text style={styles.currentPrice}>{`Total: ${
+									item.descuento === ''
+										? parseFloat(
+												item.quantity * parseFloat(item.price).toFixed(2)
+										  ).toFixed(2)
+										: (parseFloat(item.price).toFixed(2) -
+												(parseFloat(item.price).toFixed(2) *
+													parseFloat(item.descuento).toFixed(2)) /
+													100) *
+										  item.quantity
+								} ${MONEDA}`}</Text>
 							</View>
 						</View>
 					</View>

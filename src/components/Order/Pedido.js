@@ -106,7 +106,6 @@ export default function Pedido(props) {
 	const handleAddPedido = async (item) => {
 		//await deletePedidoApi()
 		setReloadCart(true)
-
 		/*=================================================== 
 				VALIDAR SI LA LICENCIA ESTA ACTIVA O NO :-D
 		=================================================== */
