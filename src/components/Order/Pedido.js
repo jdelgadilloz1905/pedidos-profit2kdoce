@@ -119,7 +119,8 @@ export default function Pedido(props) {
 				{ cancelable: false }
 			)
 		} else {
-			if (displayCurrentAddress !== '') {
+			if (displayCurrentAddress === '') {
+				//displayCurrentAddress !== '' para validar direccion
 				const response = await appCreatePedidosProfit(
 					item,
 					displayCurrentAddress

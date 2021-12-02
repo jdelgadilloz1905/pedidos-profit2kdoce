@@ -1,8 +1,8 @@
 {
 	"expo": {
-		"name": "MiChacha",
-		"slug": "PedidosMiChacha",
-		"version": "2.0",
+		"name": "Michacha",
+		"slug": "PedidosMichacha",
+		"version": "2.2",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
 		"splash": {
@@ -18,7 +18,7 @@
 			"supportsTablet": true
 		},
 		"android": {
-			"package": "com.pedidos_profit_2kdoceMiChacha.omendj",
+			"package": "com.pedidos_profit_2kdoceMichacha.omendj",
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#FFFFFF"

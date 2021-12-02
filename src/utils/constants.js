@@ -1,8 +1,7 @@
 /** @format */
 
-//export const API_URL = 'http://192.168.3.35:8080/apipedidosprofit2kdoce'
-export const API_URL =
-	'http://asatvicos.ddns.net:8080/apiPedidosProfit2kdoceAquila'
+export const API_URL = 'http://192.168.3.35:8080/apipedidosprofit2kdoce'
+//export const API_URL = 'http://asatvicos.ddns.net:8080/apiPedidosProfit2kdoceAquila'
 //export const API_URL = 'http://asatvicos.ddns.net:8080/apiPedidosProfit2kdoceBenfica'
 //export const API_URL = 'http://asatvicos.ddns.net:8080/apiPedidosProfit2kdoceSatvicos'
 export const API_URL_LICENCE = 'https://estudio57.net/apilicenciasweb/api'

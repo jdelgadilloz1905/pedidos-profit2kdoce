@@ -15,7 +15,7 @@ export default function ResultNotFound(props) {
 			/>
 			<Text style={styles.searchText}>No hay resultados para {search}.</Text>
 			<Text style={styles.otherText}>
-				Revisa la ortigrafía o usa términos más generales.
+				Revisa la ortografía o usa términos más generales.
 			</Text>
 		</View>
 	)

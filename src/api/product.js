@@ -201,42 +201,32 @@ export async function getUnidadProducto() {
 /*===============================================
 LISTA DE PRECIOS DE PRODUCTOS
 ================================================= */
-export async function getPrecioProducto() {
+export async function getPrecioProducto(item, valor) {
 	try {
-		const precioProductos = await AsyncStorage.getItem(PRECIOS)
-
-		if (!precioProductos) {
-			try {
-				const url = `${API_URL}/products/precio-producto`
-				const params = {
-					method: 'POST',
-					headers: {
-						Accept: 'application/json',
-						'Content-Type': 'application/json',
-					},
-				}
-				const response = await fetch(url, params)
-				const result = await response.json()
-
-				if (result.statusCode === 200) {
-					//almaceno la info en el localStorage
-
-					await AsyncStorage.setItem(
-						PRECIOS,
-						JSON.stringify(result.infoPrecioArticulo)
-					)
-					return result
-				} else {
-					console.log('Error al cargar los precios')
-				}
-			} catch (error) {
-				console.log('error es : ' + error)
-				return null
-			}
-		} else {
-			return JSON.parse(precioProductos) //convierto en un objeto
+		const url = `${API_URL}/products/precio-producto`
+		const params = {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				item: item,
+				valor: valor,
+			}),
 		}
-	} catch (e) {
+		const response = await fetch(url, params)
+		const result = await response.json()
+
+		if (result.statusCode === 200) {
+			//almaceno la info en el localStorage
+
+			return result.infoPrecioArticulo
+		} else {
+			console.log('Error al cargar los precios')
+		}
+	} catch (error) {
+		console.log('error es : ' + error)
 		return null
 	}
 }
@@ -250,7 +240,7 @@ export async function getAllProductsApi() {
 	await AsyncStorage.removeItem(UNIDAD)
 	await AsyncStorage.removeItem(STOCK)
 
-	await getPrecioProducto()
+	await getPrecioProducto(null, null)
 	await getStockProducto()
 	await getUnidadProducto()
 	const response = await getLastProuctsApi()

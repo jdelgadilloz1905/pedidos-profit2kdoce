@@ -105,7 +105,7 @@ export default function ChangeLicence() {
 						</Paragraph>
 
 						<Divider style={styles.espacio}></Divider>
-						<Paragraph>Versión App: 1.7</Paragraph>
+						<Paragraph>Versión App: 2.2</Paragraph>
 
 						<Paragraph>Desarrollado Por: Ing. Jorge Delgadillo</Paragraph>
 						<Paragraph>Correo: jdelgadilloz1905@gmail.com</Paragraph>
@@ -120,7 +120,7 @@ export default function ChangeLicence() {
 						<Paragraph>Validez de la licencia: 15 dias</Paragraph>
 
 						<Divider style={styles.espacio}></Divider>
-						<Paragraph>Versión App: 1.7</Paragraph>
+						<Paragraph>Versión App: 2.2</Paragraph>
 
 						<Paragraph>Desarrollado Por: Ing. Jorge Delgadillo</Paragraph>
 						<Paragraph>Correo: jdelgadilloz1905@gmail.com</Paragraph>

@@ -53,28 +53,29 @@ export default function RegisterClient() {
 		onSubmit: async (formData) => {
 			setLoading(true)
 			setUploading(true)
-			try {
-				response = await registerClientApi(
-					formData,
-					isSelectCondicio,
-					isSelectTipo,
-					isSelectSegmento,
-					auth,
-					isCheckLunes,
-					isCheckMartes,
-					isCheckMiercoles,
-					isCheckJueves,
-					isCheckViernes,
-					isCheckSabado,
-					isCheckDomingo
-				)
 
-				if (response.statusCode === 200) Alert.alert(response.mensaje)
-			} catch (error) {
-				Alert.alert('Error al registrar el cliente ', JSON.stringify(error))
-			}
-			setLoading(false)
-			setUploading(false)
+			registerClientApi(
+				formData,
+				isSelectCondicio,
+				isSelectTipo,
+				isSelectSegmento,
+				auth,
+				isCheckLunes,
+				isCheckMartes,
+				isCheckMiercoles,
+				isCheckJueves,
+				isCheckViernes,
+				isCheckSabado,
+				isCheckDomingo
+			).then((response) => {
+				if (response.statusCode === 200) {
+					Alert.alert(response.mensaje)
+				} else {
+					Alert.alert(response.mensaje)
+				}
+				setLoading(false)
+				setUploading(false)
+			})
 		},
 	})
 
@@ -302,7 +303,7 @@ function initialValues() {
 		nombre: '',
 		ciudad: '',
 		rif: '',
-		direccion: '',
+		direccion: ' ',
 		direccionEntrega: '',
 		telefono: '',
 		email: '',

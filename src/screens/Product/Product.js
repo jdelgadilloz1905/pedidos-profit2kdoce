@@ -13,7 +13,7 @@ import Price from '../../components/Product/Price'
 import Quantity from '../../components/Product/Quantity'
 import Buy from '../../components/Product/Buy'
 import Favorite from '../../components/Product/Favorite'
-import { getProductApi } from '../../api/product'
+import { getProductApi, getPrecioProducto } from '../../api/product'
 import colors from '../../styles/colors'
 import { PRECIOS, UNIDAD, STOCK, MONEDA } from '../../utils/constants'
 
@@ -35,7 +35,7 @@ export default function Product(props) {
 
 	const [isPrecio, setPrecio] = useState(null)
 
-	const buscarPreciosArt = async (item) => {
+	const buscarPreciosArt2 = async (item) => {
 		/*Busco el precio del producto */
 		const precios = await AsyncStorage.getItem(PRECIOS)
 
@@ -48,6 +48,26 @@ export default function Product(props) {
 			//recorro y armo el objeto con la lista de precio
 			let listaPrecio = []
 			newListPre.map(function (a, index) {
+				listaPrecio[index] = {
+					label: `Precio ${a.co_precio.replace(/ /g, '')}  ->  ${parseFloat(
+						a.monto
+					).toFixed(2)} ${MONEDA}`,
+					value: parseFloat(a.monto).toFixed(2),
+				}
+			})
+
+			await setSelectedPrice(listaPrecio)
+		}
+	}
+
+	const buscarPreciosArt = async (item) => {
+		/*Busco el precio del producto */
+
+		const precios = await getPrecioProducto('co_art', item)
+		if (precios.length !== 0) {
+			//recorro y armo el objeto con la lista de precio
+			let listaPrecio = []
+			precios.map(function (a, index) {
 				listaPrecio[index] = {
 					label: `Precio ${a.co_precio.replace(/ /g, '')}  ->  ${parseFloat(
 						a.monto

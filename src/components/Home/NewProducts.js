@@ -32,7 +32,7 @@ export default function NewProducts() {
 				setProducts(responseProduct)
 				await getStockProducto()
 				await getUnidadProducto()
-				await getPrecioProducto()
+				await getPrecioProducto(null, null)
 			})()
 
 			setReloadProducts(false)

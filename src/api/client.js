@@ -296,7 +296,6 @@ export async function registerClientApi(
 				viernes: checkViernes,
 				sabado: checkSabado,
 				domingo: checkDomingo,
-				s,
 			}),
 		}
 		const response = await fetch(url, params)
